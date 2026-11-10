@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AQUA SALONS RED | Nails, Hair & Beauty Salon in Phoenix, KZN</title>
+<meta name="description" content="AQUA SALONS RED is a nail, hair and beauty salon at Starwood Mall Spar, Phoenix, KwaZulu-Natal. Browse prices and book online.">
+<meta property="og:title" content="AQUA SALONS RED | Phoenix, KZN">
+<meta property="og:description" content="Nails, braids, lashes and beauty treatments. Book your appointment online.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf8f3;--card:#fffdfa;--blush:#efe3d8;--gold:#9a7b43;--ink:#181412;--mute:#6b615a;--line:#e6dccd;--sh:0 18px 50px rgba(40,28,18,.10);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1715;--card:#26201d;--blush:#3a2b29;--gold:#d2ae72;--ink:#f4ece4;--mute:#b3a69d;--line:#3a312c;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1715;--card:#26201d;--blush:#3a2b29;--gold:#d2ae72;--ink:#f4ece4;--mute:#b3a69d;--line:#3a312c;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.1;margin:0}
+a{color:inherit}.wrap{max-width:1120px;margin:auto;padding:0 20px}section{padding:72px 0}
+.eyebrow{color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:600}
+h2{font-size:clamp(32px,5vw,48px);margin:8px 0 16px}.sub{color:var(--mute);max-width:560px}
+.btn{display:inline-block;padding:13px 24px;border-radius:999px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:15px;border:1px solid var(--ink);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--sh)}.btn.alt{background:transparent;color:var(--ink)}.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}.btn.sm{padding:9px 16px;font-size:14px}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}.logo{font:600 28px "Cormorant Garamond",serif;text-decoration:none}.logo i{color:var(--gold)}
+.links{display:flex;gap:26px;align-items:center}.links a{text-decoration:none;font-size:14px;color:var(--mute)}.links a:hover{color:var(--ink)}.links .btn{color:var(--bg)}
+#burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--ink);font-size:18px}
+@media(max-width:860px){#burger{display:block}.links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:20px;border-bottom:1px solid var(--line);align-items:flex-start}.links.open{display:flex}}
+.hero{padding:56px 0 72px;background:radial-gradient(ellipse at 80% 20%,var(--blush),transparent 60%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(44px,7vw,76px);margin:14px 0 20px}.hero h1 em{color:var(--gold)}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.art{aspect-ratio:4/5;border-radius:200px 200px 24px 24px;background:linear-gradient(160deg,var(--blush),#e9cfa8 140%);box-shadow:var(--sh);display:grid;place-items:center;text-align:center;padding:30px}
+.art b{font:italic 500 34px "Cormorant Garamond",serif}.art small{display:block;margin-top:8px;color:var(--mute);font-size:12px}
+.stats{display:flex;gap:28px;margin-top:30px;color:var(--mute);font-size:14px;flex-wrap:wrap}.stats b{display:block;color:var(--ink);font:600 28px "Cormorant Garamond",serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .25s}.card:hover{transform:translateY(-4px)}
+.card.v{border-color:var(--gold)}.tile{height:92px;display:flex;align-items:flex-end;padding:12px 16px;font:italic 500 20px "Cormorant Garamond",serif;background:linear-gradient(135deg,var(--blush),color-mix(in srgb,var(--gold) 35%,var(--blush)))}
+.cb{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}.cb h3{font-size:21px}.cb p{margin:0;color:var(--mute);font-size:14px;flex:1}
+.badge{align-self:flex-start;background:var(--gold);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;padding:3px 10px;border-radius:99px}
+.meta{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--mute)}.price{font:600 26px "Cormorant Garamond",serif;color:var(--ink)}
+.row{display:flex;gap:8px}.row .btn{flex:1;text-align:center}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 12px}.tools input,.tools select{padding:11px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}.tools input{flex:1;min-width:200px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit;font-size:14px}.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.note{background:var(--blush);border-radius:16px;padding:16px 20px;margin-bottom:20px;font-size:14px}
+.alt-bg{background:color-mix(in srgb,var(--blush) 45%,var(--bg))}.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:28px}.why div{background:var(--card);padding:22px;border-radius:20px;border:1px solid var(--line)}.why h3{font-size:22px;margin-bottom:6px}.why p{margin:0;color:var(--mute);font-size:14px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:24px}.g button{aspect-ratio:1;border-radius:18px;border:0;cursor:pointer;color:#fff;font:italic 500 20px "Cormorant Garamond",serif;background:linear-gradient(135deg,#f6e0d4,#c9a692);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:flex-end;justify-content:center;padding:16px 12px;text-shadow:0 2px 10px rgba(0,0,0,.45);transition:transform .25s}.g button:nth-child(3n+1){aspect-ratio:3/4}.g button:hover{transform:scale(1.03)}
+.stars{color:var(--gold);letter-spacing:2px}.rv p{margin:8px 0;font-size:15px}.rv small{color:var(--mute)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:32px}@media(max-width:860px){.contact{grid-template-columns:1fr}}iframe{width:100%;height:100%;min-height:300px;border:0;border-radius:20px}
+.hrs{border-collapse:collapse;margin:12px 0;font-size:14px}.hrs td{padding:3px 24px 3px 0}
+dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);background:var(--card);color:var(--ink);padding:28px;box-shadow:var(--sh)}dialog::backdrop{background:rgba(20,12,8,.55)}
+dialog ol{padding-left:20px;color:var(--mute);font-size:14px}.x{float:right;background:none;border:0;font-size:22px;color:var(--ink);cursor:pointer}
+footer{padding:32px 0;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+h1,h2,h3{font-weight:500}h2{letter-spacing:.01em}
+.eyebrow{letter-spacing:.32em;font-size:11px;display:inline-flex;align-items:center;gap:12px}.eyebrow::before{content:"";width:32px;height:1px;background:var(--gold)}
+.logo{font-size:22px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
+.links a{text-transform:uppercase;letter-spacing:.14em;font-size:11px}.links .btn{color:var(--bg)}
+.btn{border-radius:2px;text-transform:uppercase;letter-spacing:.16em;font-size:11px;padding:16px 30px}.btn.sm{padding:11px 18px}.btn.gold{background:linear-gradient(135deg,#d9b97a,#a8844a);border-color:#a8844a;color:#14100e}
+.card{border-radius:6px;box-shadow:none}.card:hover{box-shadow:var(--sh)}.tile{height:84px;background:linear-gradient(135deg,#1a1411,#3d2f23);color:#e6cb98;border-bottom:1px solid var(--gold)}
+.badge{border-radius:2px;letter-spacing:.14em}.chip,.tools input,.tools select{border-radius:2px}.chip{text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+.price{color:var(--gold)}.note,dialog,.why div{border-radius:6px}.alt-bg{background:color-mix(in srgb,var(--blush) 60%,var(--bg))}
+.hero{background:#14100e;color:#f4ece4;padding:72px 0 88px}.hero h1{font-weight:400;font-size:clamp(44px,7vw,80px)}.hero h1 em{color:#d9b97a;font-weight:300}
+.hero .sub{color:#c9bcb0}.hero .stats{color:#a89b90}.hero .stats b{color:#f4ece4;font-weight:400}.hero .eyebrow{color:#d9b97a}
+.hero .btn{background:linear-gradient(135deg,#d9b97a,#a8844a);border-color:#a8844a;color:#14100e}.hero .btn.alt{background:transparent;color:#f4ece4;border-color:rgba(244,236,228,.4)}
+.hero .art{background:linear-gradient(160deg,#2a211c,#4a392b);color:#f4ece4;border:1px solid #d9b97a;box-shadow:0 0 0 10px #14100e,0 0 0 11px rgba(217,185,122,.5)}.hero .art small{color:#c9bcb0}
+.g button{border-radius:4px;background:linear-gradient(135deg,#1a1411,#4a392b);color:#e6cb98;border:1px solid var(--gold)}
+.dark{background:#14100e;color:#f4ece4}.dark .sub{color:#c9bcb0}.dark .btn{background:linear-gradient(135deg,#d9b97a,#a8844a);border-color:#a8844a;color:#14100e}.dark h2{font-weight:400}
+.tm{align-items:center;text-align:center}.mono{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#14100e;color:#d9b97a;font:italic 400 30px "Cormorant Garamond",serif;border:1px solid var(--gold)}
+:root{--bg:#f7eee8;--card:#fffaf7;--blush:#f0d3c7;--gold:#a9806a;--ink:#2b2220;--mute:#7a6a62;--line:#ecdcd2;--sh:0 10px 30px rgba(110,70,50,.10);--dk:#2b2220;--dkt:#fbf3ec}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--dk:#efd5c6;--dkt:#241b18}}:root[data-theme="dark"]{--dk:#efd5c6;--dkt:#241b18}
+.logo{text-transform:none;letter-spacing:.02em;font-size:28px}.links a{text-transform:none;letter-spacing:0;font-size:14px}.links .btn{color:var(--dkt)}
+.btn{background:var(--dk);border-color:var(--dk);color:var(--dkt);border-radius:999px;text-transform:none;letter-spacing:.01em;font-size:15px;padding:14px 28px}.btn.sm{padding:10px 18px;font-size:14px}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--ink)}.btn.gold{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.eyebrow::before{display:none}.eyebrow{letter-spacing:.2em}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(240,211,199,.86),rgba(247,238,232,.92));color:var(--ink);padding:40px 0 64px}.hero::before{content:"";position:absolute;inset:0;background-image:url('images/hero-image.jfif');background-size:cover;background-position:center;filter:blur(8px) brightness(.7);transform:scale(1.08);z-index:0}.hero > .wrap{position:relative;z-index:1}.hero h1{font-weight:500}.hero h1 em{color:var(--gold);font-weight:500}
+.hero .sub,.hero .stats{color:#fffaf7}.hero .stats b{color:#fffaf7}.hero .eyebrow{color:#f7d9bb}
+.hero .btn{background:#1d110d;border-color:#1d110d;color:#fff}.hero .btn.alt{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.45)}
+.hero h1{color:#fffaf7}.hero h1 em{color:#f4d7b6}
+.hero .art{background:linear-gradient(160deg,rgba(246,224,212,.26),rgba(201,166,146,.18));color:#fff;border:0;border-radius:32px;box-shadow:var(--sh)}.hero .art b,.hero .art small{color:#fff;text-shadow:0 2px 12px rgba(20,15,12,.7)}
+.card{border-radius:22px;box-shadow:var(--sh)}.tile{height:96px;background:linear-gradient(135deg,#f6e0d4,#c9a692);color:#fff;border-bottom:0;display:flex;align-items:flex-end;padding:14px 16px;background-size:cover;background-position:center;background-repeat:no-repeat}.tile span{display:inline-flex;background:rgba(28,21,18,.38);padding:6px 10px;border-radius:999px;font-weight:600;backdrop-filter:blur(2px)}
+.badge{border-radius:99px;background:var(--dk);color:var(--dkt);letter-spacing:.08em}.card.v{border-color:var(--gold)}
+.chip,.tools input,.tools select{border-radius:999px}.chip{text-transform:none;letter-spacing:0;font-size:14px}.chip[aria-pressed=true]{background:var(--dk);color:var(--dkt);border-color:var(--dk)}
+.price{color:var(--ink)}.note,dialog,.why div{border-radius:22px}.alt-bg{background:color-mix(in srgb,var(--blush) 40%,var(--bg))}
+.g button{border-radius:22px;background:linear-gradient(135deg,#f6e0d4,#c9a692);color:#4a342b;border:0}
+.dark{background:var(--dk);color:var(--dkt)}.dark .sub{color:inherit;opacity:.8}.dark .btn{background:var(--dkt);border-color:var(--dkt);color:var(--dk)}
+.mono{background:var(--blush);color:var(--ink);border:0}
+.tab{display:none}@media(max-width:860px){.tab{display:flex;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:25;background:var(--card);border:1px solid var(--line);border-radius:999px;box-shadow:var(--sh);padding:6px}.tab a{flex:1;text-align:center;padding:10px 4px;font-size:12px;text-decoration:none;border-radius:999px;color:var(--mute)}.tab a.on{background:var(--dk);color:var(--dkt)}.fab{display:none}body{padding-bottom:84px}}
+#bf label{display:block;font-size:13px;color:var(--mute);margin:12px 0 4px}#bf input,#bf select,#bf textarea,#cp{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);font:inherit}.err{color:#b3261e;font-size:13px;min-height:18px;margin:10px 0 4px}dialog{max-height:90vh;overflow:auto}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<a class="logo" href="#home">AQUA SALONS RED</a>
+<button id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+<div class="links" id="links"><a href="#home">Home</a><a href="#services">Services</a><a href="#packages">Packages</a><a href="#gallery">Gallery</a><a href="#about">About Us</a><a href="#team">Team</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a><a class="btn sm" href="#" data-book>Book Now</a></div>
+</nav></div></header>
+
+<main>
+<section class="hero" id="home"><div class="wrap">
+<div><span class="eyebrow">Phoenix · KwaZulu-Natal</span>
+<h1>Your Beauty. Your Confidence. <em>Your Moment.</em></h1>
+<p class="sub">Discover professional beauty, hair and nail treatments designed to make every visit special.</p>
+<div class="cta"><a class="btn" href="#" data-book>Book an Appointment</a><a class="btn alt" href="#services">Explore Our Services</a></div>
+<div class="stats"><div><b id="rt">4.6</b>average rating</div><div><b id="rc">147</b>reviews</div><div><b>9–18h</b>open daily</div></div></div>
+<div class="art" style="background-image:linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url('images/hero-image.jfif');background-size:cover;background-position:center;background-repeat:no-repeat;"><div style="background:rgba(24,18,16,.35);padding:18px 20px;border-radius:20px;"><b>AQUA SALONS RED</b><small>Beauty, braids and nails in Phoenix</small></div></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+<span class="eyebrow">Services</span><h2>Treatments &amp; prices</h2>
+<p class="sub">Prices and durations as listed by the salon. Send a booking request and we'll confirm by phone or email.</p>
+<div class="tools"><input id="q" type="search" placeholder="Search services, e.g. knotless, lashes" aria-label="Search services">
+<select id="sort" aria-label="Sort"><option value="">Sort: Featured</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="da">Duration: shortest</option></select></div>
+<div class="chips" id="chips"></div>
+<div id="vnote" class="note" hidden><b>SuperVoucher holders only.</b> These appointments require a valid #SUPERVOUCHER number and the applicable set code. They are not standard paid bookings. Where "Free" is shown, the service costs nothing with a valid voucher; other amounts are the listed voucher price. Please add a soak off separately where noted.</div>
+<div class="grid" id="list" aria-live="polite"></div>
+<p style="margin-top:24px"><button class="btn alt" type="button" data-book>Book this treatment</button></p>
+</div></section>
+
+<section class="alt-bg" id="packages"><div class="wrap">
+<span class="eyebrow">Packages &amp; Specials</span><h2>Combine and save time</h2>
+<div class="grid" id="pk"></div></div></section>
+
+<section><div class="wrap"><span class="eyebrow">Why AQUA SALONS RED</span><h2>Nails, hair and beauty under one roof</h2>
+<div class="why"><div><h3>Clear pricing</h3><p>Every service shows its price and time, including options with your own extensions where offered.</p></div><div><h3>Complete looks</h3><p>Braids, nails and lashes can be booked together in one visit.</p></div><div><h3>Easy to find</h3><p>Starwood Mall Spar, 6 Rydevale Road, Phoenix. Open every day.</p></div></div></div></section>
+
+<section class="alt-bg" id="gallery"><div class="wrap"><span class="eyebrow">Gallery</span><h2>Our work</h2>
+<p class="sub">Tap a tile to preview. Real client photos live on our booking page gallery.</p>
+<div class="g" id="g"></div>
+<p style="margin-top:24px"><button class="btn alt" type="button" data-book>Book a visit</button></p></div></section>
+
+<section id="about"><div class="wrap contact"><div><span class="eyebrow">About Us</span><h2>A nail, hair and beauty salon in Phoenix</h2>
+<p>We are a nail, hair and beauty salon situated at 6 Rydevale Road, Phoenix, inside Starwood Mall Spar. From nail sets and braids to lashes and facial treatments, you can choose a service, see the price up front and book in minutes.</p>
+<p>Follow our work on <a href="https://tiktok.com/@aquasalons" target="_blank" rel="noopener">TikTok</a>.</p></div>
+<div class="art" style="border-radius:24px;aspect-ratio:4/3;background-image:linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url('images/download%20(28).jfif');background-size:cover;background-position:center;background-repeat:no-repeat;"><div style="background:rgba(24,18,16,.38);padding:18px 20px;border-radius:20px;"><b>Our salon</b><small>True beauty and self-care</small></div></div></div></section>
+
+<section class="alt-bg" id="team"><div class="wrap"><span class="eyebrow">Our Team</span><h2>The hands behind your look</h2><div class="grid"><article class="card"><div class="cb tm"><div class="mono">S</div><h3>Sphe</h3><p>Nail Technician</p></div></article><article class="card"><div class="cb tm"><div class="mono">A</div><h3>Azaria</h3><p>Nail and Beauty Therapist</p></div></article><article class="card"><div class="cb tm"><div class="mono">S</div><h3>Sli</h3><p>Nail Technician</p></div></article><article class="card"><div class="cb tm"><div class="mono">A</div><h3>Anele</h3><p>Hair Stylist x Braider</p></div></article></div></div></section>
+
+<section id="reviews"><div class="wrap"><span class="eyebrow">Reviews</span><h2><span class="stars">★★★★★</span> 4.6 from 147 reviews</h2>
+<p class="sub">Selected client reviews, shown as written.</p>
+<div class="grid rv" id="rv" style="margin-top:24px"></div></div></section>
+
+<section class="alt-bg" id="contact"><div class="wrap contact"><div><span class="eyebrow">Contact</span><h2>Visit us</h2>
+<p>Starwood Mall Spar, 6 Rydevale Road, Phoenix, KwaZulu-Natal 4319</p>
+<table class="hrs"><tr><td>Monday – Sunday</td><td>09:00 – 18:00</td></tr></table>
+<div class="cta"><a class="btn" href="tel:+27762550602">Call +27 76 255 0602</a><a class="btn alt" href="mailto:starwoodwellnessb@outlook.com">Email us</a><a class="btn gold" href="https://wa.me/27762550602?text=Hi%20AQUA%20SALONS%20RED%2C%20I%27d%20like%20to%20make%20an%20enquiry" target="_blank" rel="noopener">WhatsApp</a></div></div>
+<div><iframe loading="lazy" title="Map" src="https://www.google.com/maps?q=Starwood+Mall+Spar+Phoenix+KZN+4319&output=embed"></iframe></div></div></section>
+
+<section class="dark" style="text-align:center"><div class="wrap"><h2>Ready for your moment?</h2><p class="sub" style="margin:0 auto 24px">Choose your treatment and send us your preferred date and time.</p><a class="btn" href="#" data-book>Book Now</a></div></section>
+</main>
+<footer><div class="wrap">© AQUA SALONS RED, Phoenix, KZN · <a href="tel:+27762550602">+27 76 255 0602</a> · <a href="mailto:starwoodwellnessb@outlook.com">starwoodwellnessb@outlook.com</a></div></footer>
+<a class="btn gold fab" href="#" data-book>Book Now</a>
+<div class="tab"><a class="on" href="#home">Home</a><a href="#services">Services</a><a href="#" data-book>Book</a><a href="#contact">Contact</a></div>
+
+<dialog id="dlg"><button class="x" aria-label="Close" onclick="dlg.close()">×</button><div id="dc"></div></dialog>
+
+<script>
+var CFG={rating:"4.6",reviews:"147",base:""};
+var CATS={n:"Nails",h:"Hair & Braids",l:"Lashes",b:"Beauty",p:"Packages",v:"SuperVoucher"};
+var CAT_IMAGES={n:"images/download%20(23).jfif",h:"images/Thinking%20About%20Big%20Box%20Braid%20Hairstyles_%20Start%20Here%20First.jfif",l:"images/download%20(24).jfif",b:"images/download%20(26).jfif",p:"images/download%20(27).jfif",v:"images/download%20(28).jfif"};
+// name, cat, price(R, 0=Free), minutes, details, salon service id
+var GALLERY=[
+["Nail designs","images/download%20(23).jfif"],
+["Braids","images/Thinking%20About%20Big%20Box%20Braid%20Hairstyles_%20Start%20Here%20First.jfif"],
+["Lashes","images/download%20(24).jfif"],
+["Hair","images/download%20(25).jfif"],
+["Beauty","images/download%20(26).jfif"],
+["Salon","images/download%20(27).jfif"],
+["Gel toes","images/download%20(28).jfif"],
+["Knottless","images/hero-image.jfif"]
+];
+var S=[
+["Express nails: acrylic hands + gel toes","n",200,110,"Plain acrylic set, one colour, 2 free nail art, gel toes basic range.","d27280cc-08b2-48e0-93a3-3c399b2a4540"],
+["Express nails: hands only","n",150,80,"Plain acrylic set, one colour, 2 free nail art (excl. 3D).","ca35fa70-8364-46f9-8b15-5f546e11b253"],
+["Acrylic hands, standard design + free soak-off","n",250,120,"Standard design with R100 free nail art.","2ca8a583-334c-49c3-9a68-cb90f123e0ae"],
+["Acrylic toes, full design + soak-off","n",250,120,"Full design and soak off included. Gel toes with tips may be substituted.","d2897491-1bf8-457f-a4e5-8c5a2c49261e"],
+["Rubber base gel hands, any design","n",200,45,"Full design. Does not include tips.","3da2d777-d26e-4857-b4a2-b996b1129333"],
+["Rubber base gel hands (no tips), full design + free soak off","n",250,90,"Full design with free soak off.","3befa009-5ec2-4648-88d3-0f0c9c197494"],
+["Rubber base gel toes, full design","n",200,45,"Soak or file off charged separately. Does not include tips.","26049768-1682-47b4-aed6-c8e6fc32a5e0"],
+["Rubber base gel toes, full design + soak off","n",200,45,"Full design with free soak off.","95f559f7-cf2a-4c17-926c-04ebdc294484"],
+["French gel toes","n",200,45,"French gel toes only.","2c4b8847-b000-482e-b441-c4bcde7f1956"],
+["Soak off only","n",80,30,"Hands R80, foreign R100, with new set R50. Toes: rubber base gel R50, acrylic R80 (foreign R100, with new set R50).","19d45804-eedb-4cf9-ab5c-6a7842a168b6"],
+["Cat eye effect lashes","l",150,30,"R75 for VIP SuperVoucher holders. Expected retention about 2 weeks.","8373404c-ffe4-4206-bad4-5da9408f77e0"],
+["Cluster lashes","l",120,15,"R60 for VIP SuperVoucher holders. Expected retention about 2 weeks.","61deca2a-42c6-4364-8bc3-49be701a63ef"],
+["Wash and set + free Karseell treatment","h",50,60,"Above shoulder R50, longer than midback R60.","46c02e92-2a89-47ef-b1fe-72e6aaaab3e6"],
+["Roots + wash and set","h",100,120,"Roots in black or dark brown only.","8537c331-f6f9-4149-b0ab-be1b5ac596a1"],
+["Full colour","h",150,120,"Shoulder and mid-length hair. Hair types are assessed; additional costs may apply.","abcaa5fc-dcf1-4278-a0ed-ec52915a8172"],
+["Boho / Goddess braids + free wash","h",520,210,"R400 with your own extensions. 2x Londie London extensions and curls included. Optional free gel toes.","2bfffa7d-6b67-45d2-bb12-1c9462417b6a"],
+["Knottless braids, medium","h",440,210,"R300 with your own extensions (R352 VIP SuperVoucher with our extensions). Optional free gel toes.","a7787a4d-3b79-4d36-bf4f-be1b836c85cf"],
+["Knottless braids with curls","h",540,210,"R400 with your own extensions (R432 VIP SuperVoucher). Optional free gel toes.","d957cf70-e0fb-45bb-bb10-4be67b962cef"],
+["Medium box braids / large knottless / straight back","h",390,150,"R250 with own extensions (R312 VIP SuperVoucher). Free wash and gel toes.","57203e02-c8e3-4b2a-866a-c28389924c44"],
+["Sweet & Sour / Lemonade / Box braids with curls","h",490,180,"R300 with own extensions (R392 VIP SuperVoucher). Free wash and gel toes.","bb91d548-5506-41bc-8782-9b6dba05584a"],
+["Designer cornrows, straight up + free wash","h",450,180,"R330 with own extensions (R366 VIP SuperVoucher). Curls and extensions included.","9558013d-89ba-4999-9591-555f4dff6ea1"],
+["Knottless twist, medium","h",540,180,"R400 with own extensions (R432 VIP SuperVoucher). Free wash and gel toes optional.","8c62a019-35b7-4fb4-86d8-10efe2064f74"],
+["Knottless twist with curls","h",690,210,"R400 with own extensions (R552 VIP SuperVoucher). Free wash and gel toes optional.","29de59fa-fa99-4416-8646-9bea7a296512"],
+["Curly pop / Pop twist / Passion twist","h",550,180,"R400 with own extensions (R440 VIP SuperVoucher). Includes 1 extension; extra packs R120 each.","4dd9891e-238a-4475-8f1a-e9249f4fafa9"],
+["French curls short / Milano / short knottless","h",490,150,"R290 with own extensions (R392 VIP SuperVoucher). Free wash.","10139c0e-1a0a-4c4c-ab5c-4480df0707b8"],
+["French curls long / Sweet & Sour with curls","h",550,180,"R400 with own extensions (R440 VIP SuperVoucher). Free wash plus free gel toes or express pedicure.","5ba0585e-aec5-4d7c-bde4-1212f3298f8a"],
+["Gents cornrows","h",250,90,"Gents cornrows.","cd3150e4-0e41-4cd1-a78d-36328a4d57a9"],
+["Gents box braids","h",350,120,"Includes a free wash.","1b42a15a-66db-4d3b-83f4-920757704f07"],
+["Full face derma + wash and set","b",100,60,"Derma, eyebrow shaping and tinting, wash and set with free Karseell. Longer than midback R150.","047bacac-6fa1-4b0b-b35d-66a1cb8b600a"],
+["Full face wax + derma + wash and set","b",150,90,"Waxing, derma, brow shaping and tinting, wash and set with Karseell. Longer than midback R200.","aad31521-ec18-4a36-8a60-9d7a7e699408"],
+["Acrylic hands + rubber base gel toes + classic lashes","p",249,130,"Standard design with R100 free nail art; full design toes.","5a10b1f7-9bfd-4b56-81b0-458c3525cf93"],
+["Rubber base gel tips (hands) + lashes or wash and set","p",250,90,"Two free nail art. Wash and set includes Karseell treatment.","5321b98e-c89e-44dc-bb22-481523804d29"],
+["Rubber base gel toes + lashes or wash and set","p",200,90,"Full design included. Does not include tips.","312dd512-9ff8-40c8-84ee-63b346bf27a4"],
+["Boho / Goddess braids + nails","p",600,240,"R500 with own extensions. Acrylic standard design, free gel toes, curls and wash.","7306e9ff-c9b0-44bd-a7a2-7ded0bad8017"],
+["Boho / Goddess braids + nails + lashes","p",700,240,"R550 with own extensions. Acrylic hands, rubber base gel toes, cluster lashes, curls.","390fea10-0955-41cd-88a9-90253f909f2e"],
+["Knottless braids + acrylic hands + free gel toes + wash","p",640,240,"R500 with own extensions. Standard acrylic design.","abc224ff-b6dd-4b41-8a03-12943b2e52a1"],
+["Knottless braids + nails + lashes + free wash","p",600,240,"R500 with own extensions. Cluster lashes (add R30 for cat eye). 90 min nails, 240 min braids and lashes.","e1d7ba64-af02-436f-a904-224e326ea6a1"],
+["Knottless / Boho / Goddess + acrylic + gel toes + classic lashes","p",600,240,"All extensions included. Curls included.","d8416394-cc50-4ff4-930e-2e553ca978aa"],
+["Voucher: Soak off only","v",0,30,"SuperVoucher holders only. Soak off only.","b3238493-c85b-4635-9d19-4442da57797c"],
+["Voucher: Gel toes only","v",0,30,"SuperVoucher holders only. Gel toes only.","c1868af6-e624-437f-871a-6a9412a04939"],
+["Voucher: Acrylic hands only (no soak off)","v",0,80,"SuperVoucher holders only. Soak off must be booked separately.","61ca1e4e-e597-4b74-90c9-100052c1e7cf"],
+["Voucher: Gel tips hands only (no soak off)","v",0,80,"SuperVoucher holders only. Soak off must be booked separately.","a8f6fda9-8421-4d03-91eb-53c591633837"],
+["Voucher: Gel hands (no tips) + gel toes only","v",0,75,"SuperVoucher holders only. No soak off.","8eabe8e9-b9ff-49b7-9e73-97b37ba35050"],
+["Voucher: Gel hands (no tips) + soak off","v",0,75,"SuperVoucher holders only.","cac874f6-8c87-462b-b242-a92f75663bc2"],
+["Voucher: Gel hands (no tips) + gel toes + soak off","v",0,105,"VIP SuperVoucher holders only.","9caf0396-641c-4504-a9fc-924a8306fd58"],
+["Voucher V1: Acrylic hands or gel tips + gel toes","v",0,120,"Must have a voucher. Add soak off separately if needed.","d45a0869-1735-41fa-a07e-e6ccfc203cee"],
+["Voucher V1: Acrylic hands or gel tips + acrylic toes","v",125,240,"SuperVoucher holders only. Book soak off separately if required.","562a4d68-6db3-427f-8225-2de8620f0dc2"],
+["Voucher: Acrylic hands or gel tips + gel toes + lashes","v",60,150,"Must have a voucher. Cluster lashes. Add soak off if needed.","f8b51b0a-7dcb-4900-86bb-7fbf189d52e8"],
+["Voucher: Acrylic toes only (no soak off)","v",125,90,"SuperVoucher holders only.","d7d4a5d2-81bd-4866-89f5-c9568d661a58"],
+["Voucher: Acrylic toes + soak off","v",175,120,"VIP SuperVoucher holders only.","e716b010-fdee-4d1c-a912-34c3cb59b4ff"],
+["Voucher: Gel toes + deluxe pedicure","v",125,75,"SuperVoucher holders only.","afca277b-221c-48e3-9edf-25b159ecf1fe"]
+];
+var RV=[["brenda pillay","gorgous set done by sphe. love love love"],["Ricquell Moodley","Great service as always!"],["Nicole kesari","My experience is always fantastic the stuff is super friendly and Sphe is a fantastic nail tech"],["Denisha Govender","Chiks did an amazing job. I'll definitely be referring you guys to the rest of my family/friends"],["Diane Naidoo","Excellent job done by sli"]];
+var $=function(i){return document.getElementById(i)},fm=function(m){var h=Math.floor(m/60),r=m%60;return (h?h+" hr ":"")+(r?r+" mins":"").trim()};
+var url=function(s){return CFG.base+"?step=staff&type=service&products="+s[5]};
+var cat="all",list=$("list");
+$("rt").textContent=CFG.rating;$("rc").textContent=CFG.reviews;
+function card(s,i){var v=s[1]=="v",p=s[2]?"R "+s[2]:"Free",img=CAT_IMAGES[s[1]]||CAT_IMAGES.n;
+return '<article class="card'+(v?' v':'')+'"><div class="tile" style="background-image:linear-gradient(rgba(26,20,17,.12),rgba(26,20,17,.62)),url(\''+img+'\');"><span>'+CATS[s[1]]+'</span></div><div class="cb">'+(v?'<span class="badge">SUPERVOUCHER ONLY</span>':'')+'<h3>'+s[0]+'</h3><p>'+s[4]+'</p><div class="meta"><span>'+fm(s[3])+'</span><span class="price">'+p+'</span></div><div class="row"><button class="btn alt sm" data-d="'+i+'">Details</button><button class="btn sm" data-b="'+i+'">Book Now</button></div></div></article>'}
+function render(){var q=$("q").value.toLowerCase(),o=$("sort").value,a=S.map(function(s,i){return[s,i]}).filter(function(x){var s=x[0];return(cat=="all"?s[1]!="v":s[1]==cat)&&(s[0]+" "+s[4]).toLowerCase().indexOf(q)>-1});
+if(o)a.sort(function(x,y){return o=="pa"?x[0][2]-y[0][2]:o=="pd"?y[0][2]-x[0][2]:x[0][3]-y[0][3]});
+list.innerHTML=a.length?a.map(function(x){return card(x[0],x[1])}).join(""):'<p>No services match your search.</p>';$("vnote").hidden=cat!="v"}
+$("chips").innerHTML=[["all","All paid services"]].concat(Object.keys(CATS).map(function(k){return[k,CATS[k]]})).map(function(c){return'<button class="chip" data-c="'+c[0]+'" aria-pressed="'+(c[0]=="all")+'">'+c[1]+'</button>'}).join("");
+$("chips").onclick=function(e){var c=e.target.dataset.c;if(!c)return;cat=c;[].forEach.call($("chips").children,function(b){b.setAttribute("aria-pressed",b.dataset.c==c)});render()};
+$("q").oninput=render;$("sort").onchange=render;
+$("pk").innerHTML=S.filter(function(s){return s[1]=="p"}).slice(0,6).map(function(s){return card(s,S.indexOf(s))}).join("");
+document.addEventListener("click",function(e){var d=e.target.dataset.d;if(d!=null){var s=S[d];$("dc").innerHTML='<h3 style="font-size:28px">'+s[0]+'</h3><p class="price">'+(s[2]?"R "+s[2]:"Free")+' · <span style="font-size:16px;font-family:Inter">'+fm(s[3])+'</span></p><p>'+s[4]+'</p>'+(s[1]=="v"?'<p class="note"><b>Voucher only.</b> Have your #SUPERVOUCHER number and applicable set code ready.</p>':'')+'<button class="btn" style="width:100%" data-b="'+d+'">Request this booking</button>';dlg.showModal()}});
+
+$("g").innerHTML=GALLERY.map(function(item){var t=item[0],img=item[1];return '<button data-g="'+t+'" style="background-image:linear-gradient(rgba(31,24,20,.16),rgba(31,24,20,.55)),url(\''+img+'\');background-size:cover;background-position:center;">'+t+'</button>'}).join("");
+$("g").onclick=function(e){var t=e.target.dataset.g;if(t){var selected=null;GALLERY.forEach(function(item){if(!selected&&item[0]===t){selected=item;}});if(selected){$("dc").innerHTML='<div class="art" style="border-radius:20px;aspect-ratio:1;background-image:linear-gradient(rgba(31,24,20,.18),rgba(31,24,20,.42)),url(\''+selected[1]+'\');background-size:cover;background-position:center;"><div><b>'+t+'</b><small>AQUA SALONS RED salon work</small></div></div><p>Want to book this look? Use our booking form below.</p>';dlg.showModal()}}};
+$("rv").innerHTML=RV.map(function(r){return'<article class="card"><div class="cb"><span class="stars">★★★★★</span><p>“'+r[1]+'”</p><small>'+r[0]+'</small></div></article>'}).join("");
+$("burger").onclick=function(){var o=$("links").classList.toggle("open");this.setAttribute("aria-expanded",o)};
+$("links").onclick=function(){this.classList.remove("open")};
+var MAIL="starwoodwellnessb@outlook.com";
+function newRef(){var u=[];try{u=JSON.parse(localStorage.getItem("hbRefs")||"[]")}catch(e){}var r,n=0;do{r="C"+(1000+crypto.getRandomValues(new Uint32Array(1))[0]%9000);n++}while(u.indexOf(r)>-1&&n<200);return r}
+function useRef(r){try{var u=JSON.parse(localStorage.getItem("hbRefs")||"[]");u.push(r);localStorage.setItem("hbRefs",JSON.stringify(u))}catch(e){}}
+function openForm(i){var REF=newRef(),s=(i===null||i==="")?null:S[i];
+var o=Object.keys(CATS).map(function(k){return'<optgroup label="'+CATS[k]+'">'+S.map(function(x,j){return x[1]==k?'<option value="'+j+'"'+(s&&S[j]===s?' selected':'')+'>'+x[0]+(x[2]?' · R'+x[2]:' · Free')+'</option>':''}).join('')+'</optgroup>'}).join('');
+var t='';for(var h=9;h<=17;h++){["00","30"].forEach(function(m){t+='<option>'+(h<10?'0':'')+h+':'+m+'</option>'})}
+$("dc").innerHTML='<h3 style="font-size:28px">Request a booking</h3><p style="color:var(--mute);font-size:14px">Send us your preferred date and time. Your appointment is confirmed only once we reply.</p><form id="bf" novalidate><label>Service</label><select id="bs"><option value="">Select a service</option>'+o+'</select><div id="vf" class="note" hidden>This is a voucher service. Please have your #SUPERVOUCHER number and set code ready when you arrive.</div><label>Preferred technician</label><select id="bu"><option>No preference</option><option>Sphe (Nail Technician)</option><option>Azaria (Nail and Beauty Therapist)</option><option>Sli (Nail Technician)</option><option>Anele (Hair Stylist x Braider)</option></select><label>Preferred date</label><input id="bd" type="date"><label>Preferred time</label><select id="bt">'+t+'</select><label>Full name</label><input id="bn" autocomplete="name"><label>Phone number</label><input id="bp" type="tel" autocomplete="tel"><label>Email</label><input id="be" type="email" autocomplete="email"><label>Notes (optional)</label><textarea id="bm" rows="2"></textarea><p class="err" id="er"></p><div class="row"><button class="btn" type="submit">Send by email</button><button class="btn alt" type="button" id="bw">WhatsApp</button></div></form>';
+var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$("bd").min=d.toISOString().slice(0,10);
+function sync(){var v=$("bs").value!==""&&S[$("bs").value][1]=="v";$("vf").hidden=!v}$("bs").onchange=sync;sync();
+function build(){var e=$("er"),v=function(x){return $(x).value.trim()},sv=$("bs").value,s2=sv===""?null:S[sv],m;
+if(!s2)m="Please choose a service.";else if(!v("bd")||v("bd")<$("bd").min)m="Please choose a date from today onwards.";else if(v("bn").length<2)m="Please enter your name.";else if(!/^\+?[\d\s-]{9,}$/.test(v("bp")))m="Please enter a valid phone number.";else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("be")))m="Please enter a valid email address.";
+e.textContent=m||"";if(m)return null;
+return{s:s2[0],t:"Booking reference: "+REF+"\nService: "+s2[0]+"\nListed price: "+(s2[2]?"R"+s2[2]:"Free (voucher)")+"\nDuration: "+fm(s2[3])+"\nTechnician: "+$("bu").value+"\nPreferred date: "+v("bd")+"\nPreferred time: "+$("bt").value+"\nName: "+v("bn")+"\nPhone: "+v("bp")+"\nEmail: "+v("be")+(v("bm")?"\nNotes: "+v("bm"):"")}}
+$("bf").onsubmit=function(ev){ev.preventDefault();var r=build();if(!r)return;
+$("dc").innerHTML='<h3 style="font-size:28px">Almost done</h3><div class="note" style="text-align:center"><div style="font-size:13px">Your booking reference</div><div style="font:500 52px/1.1 Cormorant Garamond,serif;letter-spacing:.08em;margin:6px 0">'+REF+'</div><b>Please screenshot this reference</b> and keep it for your appointment.</div><p>Your request is <b>not sent yet</b>. Tap Open email app below and press send there, or send it on WhatsApp. We will confirm your time by phone or email.</p><p style="font-size:14px;color:var(--mute)">As a backup, also send your reference to the salon on WhatsApp. Nothing opened? Copy the request and email it to '+MAIL+'.</p><textarea id="cp" rows="8" readonly></textarea><div class="row" style="margin-top:12px"><a class="btn" target="_blank" rel="noopener" id="ml">Open email app</a></div><div class="row" style="margin-top:12px"><button class="btn alt" id="cpb">Copy request</button><a class="btn" target="_blank" rel="noopener" id="wa">Send backup on WhatsApp</a></div>';
+$("cp").value=r.t;$("ml").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Booking "+REF+": "+r.s)+"&body="+encodeURIComponent(r.t);$("wa").href="https://wa.me/27762550602?text="+encodeURIComponent(r.t);$("cpb").onclick=function(){$("cp").select();try{document.execCommand("copy");this.textContent="Copied"}catch(x){}};
+useRef(REF)};
+$("bw").onclick=function(){var f=$("bf");if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event("submit",{cancelable:true}))}}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-b],[data-book]");if(!b)return;e.preventDefault();openForm(b.dataset.b!==undefined?b.dataset.b:null);if(!dlg.open)dlg.showModal()});
+render();
+</script>
+</body>
+</html>
