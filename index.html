@@ -333,8 +333,9 @@ render();
     const whySection=whyLabel?.closest("section");
     if(whySection){const paragraphs=whySection.querySelectorAll(".why p");if(paragraphs[0])paragraphs[0].textContent="Browse services and prices before requesting an appointment.";if(paragraphs[1])paragraphs[1].textContent="Choose the treatments that suit your visit.";if(paragraphs[2])paragraphs[2].textContent=salon.address||"Contact the salon for location details.";}
 
-    // Hide demo-only content until the platform has proper gallery, reviews and package management.
+    // Hide demo-only content and links until these features are managed per salon.
     ["#gallery","#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
+    document.querySelectorAll('a[href="#gallery"],a[href="#reviews"],a[href="#packages"]').forEach(a=>a.hidden=true);
     const team=document.querySelector("#team");
     if(team){
       const grid=team.querySelector(".grid");
