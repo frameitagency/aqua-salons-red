@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salon Dashboard | Frame It</title>
+<style>
+:root{font-family:Inter,system-ui,Arial,sans-serif;color:#1f2923;background:#f5f7f4;--green:#315b45;--line:#e1e8e1;--muted:#66736a}
+*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{background:#fff;border-bottom:1px solid var(--line);padding:16px 5vw;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:3}
+.brand{font-weight:800;letter-spacing:.08em;color:var(--green)}.wrap{max-width:1100px;margin:34px auto;padding:0 20px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 8px 28px #203a2410}
+h1,h2{margin:0 0 10px}h1{font-size:30px}h2{font-size:20px}.muted{color:var(--muted);font-size:14px}
+label{display:block;font-size:13px;font-weight:650;margin:12px 0 5px}
+input,textarea,select{width:100%;border:1px solid #d6dfd7;border-radius:9px;padding:11px;background:#fff;color:#1f2923}
+textarea{min-height:80px;resize:vertical}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.btn{border:0;border-radius:9px;background:var(--green);color:white;padding:11px 16px;font-weight:700}.btn.secondary{background:#edf3ee;color:var(--green)}.btn.danger{background:#fff0ef;color:#a32d27}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hidden{display:none!important}.status{padding:10px 12px;border-radius:9px;background:#edf3ee;color:var(--green);margin:12px 0;font-size:14px}
+.item{border-top:1px solid var(--line);padding:14px 0;display:flex;justify-content:space-between;gap:14px;align-items:center}.item:first-child{border-top:0}
+.pill{background:#edf3ee;color:var(--green);border-radius:99px;padding:5px 10px;font-size:12px;font-weight:700}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{margin:20px auto}.panel{padding:17px}}
+</style>
+</head>
+<body>
+<header><div class="brand">FRAME IT <span style="font-weight:400">/ SALON PLATFORM</span></div><button id="signout" class="btn secondary hidden">Sign out</button></header>
+<main class="wrap">
+<section id="auth" class="panel">
+<h1>Salon owner sign in</h1><p class="muted">Create an account or sign in to manage your salon website.</p>
+<div class="grid">
+<div><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+<div><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters"></div>
+</div>
+<div class="row" style="margin-top:16px"><button class="btn" id="login">Sign in</button><button class="btn secondary" id="signup">Create account</button></div>
+<div id="authmsg" class="status hidden" role="status"></div>
+</section>
+
+<section id="app" class="hidden">
+<div class="row" style="justify-content:space-between"><div><h1 id="welcome">Your salon</h1><p class="muted">Manage your salon profile, services and appointment requests.</p></div><span class="pill">Salon owner dashboard</span></div>
+<div id="create" class="panel">
+<h2>Create your salon website</h2><p class="muted">Use your own business name. Adora is only the original demonstration salon.</p>
+<div class="grid"><div><label for="newname">Salon name</label><input id="newname" placeholder="Your salon name"></div><div><label for="newslug">Website address / slug</label><input id="newslug" placeholder="your-salon"></div></div>
+<button id="createsalon" class="btn" style="margin-top:14px">Create salon</button>
+</div>
+
+<div id="workspace" class="hidden">
+<section class="panel">
+<h2>Business profile</h2>
+<div class="grid">
+<div><label for="salonname">Business name</label><input id="salonname"></div>
+<div><label for="slug">Website slug</label><input id="slug" disabled></div>
+<div><label for="phone">Phone</label><input id="phone" type="tel"></div>
+<div><label for="whatsapp">WhatsApp number</label><input id="whatsapp" placeholder="27..."></div>
+<div><label for="salonemail">Business email</label><input id="salonemail" type="email"></div>
+<div><label for="address">Address</label><input id="address"></div>
+<div><label for="primary">Primary brand colour</label><input id="primary" type="color" value="#315b45"></div>
+<div><label for="accent">Accent colour</label><input id="accent" type="color" value="#d9b97a"></div>
+</div>
+<label for="description">About your salon</label><textarea id="description"></textarea>
+<button id="saveprofile" class="btn" style="margin-top:14px">Save profile</button>
+</section>
+
+<section class="panel">
+<h2>Services and prices</h2><p class="muted">Add the treatments customers can view on your website.</p>
+<div class="grid">
+<div><label for="servicename">Service name</label><input id="servicename" placeholder="Gel nails"></div>
+<div><label for="servicecategory">Category</label><input id="servicecategory" placeholder="Nails, Hair, Lashes"></div>
+<div><label for="serviceprice">Price (ZAR)</label><input id="serviceprice" type="number" min="0" step="0.01" placeholder="250"></div>
+<div><label for="duration">Duration (minutes)</label><input id="duration" type="number" min="1" step="5" value="60"></div>
+</div>
+<label for="servicedesc">Description</label><textarea id="servicedesc" placeholder="What is included in this service?"></textarea>
+<button id="addservice" class="btn" style="margin-top:14px">Add service</button>
+<div id="serviceslist" style="margin-top:18px"></div>
+</section>
+
+<section class="panel">
+<h2>Appointment requests</h2><p class="muted">Requests are not automatically confirmed. Contact the customer before confirming a time.</p>
+<div id="bookingslist"><p class="muted">Loading requests...</p></div>
+</section>
+</div>
+</section>
+<div id="message" class="status hidden" role="status"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Add your Supabase project URL and publishable/anon key here.
+   Never use the service_role key in this browser file. */
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
+const $ = id => document.getElementById(id);
+let client = null, user = null, salon = null;
+
+function notice(id, text, isError=false) {
+  const el = $(id); el.textContent = text; el.classList.remove("hidden");
+  el.style.background = isError ? "#fff0ef" : "#edf3ee";
+  el.style.color = isError ? "#a32d27" : "#315b45";
+}
+function slugify(s) {
+  return s.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+function money(value) {
+  return new Intl.NumberFormat("en-ZA",{style:"currency",currency:"ZAR"}).format(Number(value||0));
+}
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+async function refresh() {
+  const {data:{session}} = await client.auth.getSession();
+  user = session?.user || null;
+  $("auth").classList.toggle("hidden",!!user);
+  $("app").classList.toggle("hidden",!user);
+  $("signout").classList.toggle("hidden",!user);
+  if (!user) return;
+  $("welcome").textContent = "Welcome to your dashboard";
+  const {data,error} = await client.from("salons").select("*").order("created_at",{ascending:true}).limit(1);
+  if (error) return notice("message",error.message,true);
+  salon = data?.[0] || null;
+  $("create").classList.toggle("hidden",!!salon);
+  $("workspace").classList.toggle("hidden",!salon);
+  if (salon) {
+    $("welcome").textContent = salon.name;
+    $("salonname").value = salon.name || "";
+    $("slug").value = salon.slug || "";
+    $("phone").value = salon.phone || "";
+    $("whatsapp").value = salon.whatsapp || "";
+    $("salonemail").value = salon.email || "";
+    $("address").value = salon.address || "";
+    $("description").value = salon.description || "";
+    $("primary").value = salon.primary_color || "#315b45";
+    $("accent").value = salon.accent_color || "#d9b97a";
+    await Promise.all([loadServices(),loadBookings()]);
+  }
+}
+async function loadServices() {
+  const {data,error} = await client.from("services").select("*").eq("salon_id",salon.id).order("sort_order").order("created_at");
+  if(error) return notice("message",error.message,true);
+  $("serviceslist").innerHTML = data.length ? data.map(s =>
+    '<div class="item"><div><strong>'+esc(s.name)+'</strong><div class="muted">'+esc(s.category||"General")+' · '+money(s.price)+' · '+s.duration_minutes+' min</div></div><button class="btn danger" data-delete-service="'+s.id+'">Remove</button></div>'
+  ).join("") : '<p class="muted">No services added yet.</p>';
+}
+async function loadBookings() {
+  const {data,error} = await client.from("bookings").select("id,customer_name,customer_phone,customer_email,requested_date,requested_time,status,notes,services(name)").eq("salon_id",salon.id).order("created_at",{ascending:false}).limit(50);
+  if(error) return notice("message",error.message,true);
+  $("bookingslist").innerHTML = data.length ? data.map(b =>
+    '<div class="item"><div><strong>'+esc(b.customer_name)+'</strong><div class="muted">'+esc(b.services?.name||"Service")+' · '+esc(b.requested_date)+' '+esc(b.requested_time)+' · '+esc(b.customer_phone)+'</div><div class="muted">'+esc(b.customer_email||"")+' '+esc(b.notes||"")+'</div><span class="pill">'+esc(b.status)+'</span></div><div class="row"><button class="btn secondary" data-status="confirmed" data-id="'+b.id+'">Confirm</button><button class="btn danger" data-status="declined" data-id="'+b.id+'">Decline</button></div></div>'
+  ).join("") : '<p class="muted">No appointment requests yet.</p>';
+}
+async function auth(action) {
+  if(!configured) return notice("authmsg","Add your Supabase URL and publishable key in dashboard.html before signing in.",true);
+  const email=$("email").value.trim(),password=$("password").value;
+  if(!email || password.length<8) return notice("authmsg","Enter a valid email and a password with at least 8 characters.",true);
+  const result = action==="signup" ? await client.auth.signUp({email,password}) : await client.auth.signInWithPassword({email,password});
+  if(result.error) return notice("authmsg",result.error.message,true);
+  if(action==="signup" && !result.data.session) return notice("authmsg","Account created. Check your email to confirm your address, then sign in.");
+  await refresh();
+}
+$("login").onclick=()=>auth("login");
+$("signup").onclick=()=>auth("signup");
+$("signout").onclick=async()=>{await client.auth.signOut();await refresh()};
+$("newname").oninput=()=>{$("newslug").value=slugify($("newname").value)};
+$("createsalon").onclick=async()=>{
+  const name=$("newname").value.trim(),slug=slugify($("newslug").value);
+  if(!name||!slug) return notice("message","Enter a salon name and a valid URL slug.",true);
+  const {error}=await client.from("salons").insert({owner_user_id:user.id,name,slug});
+  if(error) return notice("message",error.message,true);
+  await refresh();
+};
+$("saveprofile").onclick=async()=>{
+  const payload={name:$("salonname").value.trim(),phone:$("phone").value.trim(),whatsapp:$("whatsapp").value.trim(),email:$("salonemail").value.trim(),address:$("address").value.trim(),description:$("description").value.trim(),primary_color:$("primary").value,accent_color:$("accent").value};
+  const {error}=await client.from("salons").update(payload).eq("id",salon.id);
+  if(error) return notice("message",error.message,true);
+  notice("message","Salon profile saved.");
+  await refresh();
+};
+$("addservice").onclick=async()=>{
+  const name=$("servicename").value.trim(),price=Number($("serviceprice").value),duration=Number($("duration").value);
+  if(!name||!Number.isFinite(price)||price<0||!Number.isInteger(duration)||duration<1) return notice("message","Enter a service name, valid price and duration.",true);
+  const {error}=await client.from("services").insert({salon_id:salon.id,name,category:$("servicecategory").value.trim(),price,duration_minutes:duration,description:$("servicedesc").value.trim()});
+  if(error) return notice("message",error.message,true);
+  ["servicename","servicecategory","serviceprice","servicedesc"].forEach(id=>$(id).value="");$("duration").value=60;
+  await loadServices();notice("message","Service added.");
+};
+document.addEventListener("click",async e=>{
+  const del=e.target.closest("[data-delete-service]");
+  if(del && confirm("Remove this service from your public menu?")) {
+    const {error}=await client.from("services").delete().eq("id",del.dataset.deleteService);
+    if(error) notice("message",error.message,true); else await loadServices();
+  }
+  const status=e.target.closest("[data-status]");
+  if(status) {
+    const {error}=await client.from("bookings").update({status:status.dataset.status}).eq("id",status.dataset.id);
+    if(error) notice("message",error.message,true); else await loadBookings();
+  }
+});
+if(configured && window.supabase) {
+  client=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  client.auth.onAuthStateChange(()=>{refresh()});
+  refresh();
+} else {
+  notice("authmsg","Setup required: create a Supabase project, run supabase/schema.sql, then add your project URL and publishable key in this file.",true);
+}
+</script>
+</body>
+</html>
