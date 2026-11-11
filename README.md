@@ -40,7 +40,16 @@ The first user who creates a salon becomes its owner through a database trigger.
 
 ## Local development
 
-The current index.html is still the original Adora demo and is not yet connected to Supabase. The next implementation step is to add the Supabase browser client, authentication screens, salon onboarding and a dashboard, then replace hard-coded Adora content with data loaded by salon slug.
+Both `dashboard.html` and the public `index.html` are now connected to the `frame-it-salon-saas` Supabase project. The public page reads `?salon=<slug>`, loads the active salon profile, services and staff, and inserts customer requests into `bookings` with `pending` status. The dashboard is used to create the salon and add its services. Demo-only gallery, review and package sections are hidden on tenant pages until those features have salon-specific management.
+
+## Public website testing
+
+1. Create a salon account in `dashboard.html` and create its profile with a unique slug.
+2. Add at least one active service in the dashboard.
+3. Open the public website with `index.html?salon=your-slug` (replace `your-slug` with the exact slug).
+4. Submit a test booking request. It should appear in the dashboard booking inbox as `pending`.
+
+The public page currently uses query-parameter tenant routing for MVP testing. It is not deployed publicly yet.
 
 ## Deployment notes
 
