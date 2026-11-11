@@ -326,7 +326,7 @@ render();
     const heroSub=document.querySelector(".hero .sub");
     if(heroSub) heroSub.textContent=desc;
     const art=document.querySelector(".hero .art");
-    if(art){const img=safeUrl(salon.hero_image_url);if(img)art.style.backgroundImage="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(img)+")";art.innerHTML="<div style='background:rgba(24,18,16,.45);padding:18px 20px;border-radius:20px'><b>"+esc(salon.name)+"</b><small>"+esc(salon.address||"Beauty and self-care")+"</small></div>";}
+    if(art){const img=safeUrl(salon.hero_image_url);if(img){art.style.background="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(img)+") center/cover no-repeat";}else{art.style.background="linear-gradient(160deg,#2a211c,#4a392b)";}art.innerHTML="<div style='background:rgba(24,18,16,.45);padding:18px 20px;border-radius:20px'><b>"+esc(salon.name)+"</b><small>"+esc(salon.address||"Beauty and self-care")+"</small></div>";}
     const about=document.querySelector("#about");
     if(about){
       const p=about.querySelector("p");if(p)p.textContent=desc;
@@ -438,7 +438,7 @@ render();
       const heroTitle=document.querySelector(".hero h1");if(heroTitle)heroTitle.innerHTML=esc(name);
       const heroSub=document.querySelector(".hero .sub");if(heroSub)heroSub.textContent=description;
       const eyebrow=document.querySelector(".hero .eyebrow");if(eyebrow)eyebrow.textContent=p.address||salon.address||"Welcome to our salon";
-      const heroArt=document.querySelector(".hero .art");if(heroArt){const u=safeUrl(p.hero_image_url||salon.hero_image_url);if(u)heroArt.style.backgroundImage="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(u)+")";heroArt.querySelector("b")?.replaceChildren(document.createTextNode(name));}
+      const heroArt=document.querySelector(".hero .art");if(heroArt){const u=safeUrl(p.hero_image_url||salon.hero_image_url);heroArt.style.background=u?"linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(u)+") center/cover no-repeat":"linear-gradient(160deg,#2a211c,#4a392b)";heroArt.querySelector("b")?.replaceChildren(document.createTextNode(name));}
       const about=document.querySelector("#about");if(about){const h=about.querySelector("h2");if(h)h.textContent="Welcome to "+name;const para=about.querySelector("p");if(para)para.textContent=description;const art=about.querySelector(".art");const u=safeUrl(p.hero_image_url||salon.hero_image_url);if(art&&u)art.style.backgroundImage="url("+JSON.stringify(u)+")";}
       const contact=document.querySelector("#contact");if(contact){const para=contact.querySelector("p");if(para)para.textContent=p.address||salon.address||"Contact the salon for its location.";}
       const footer=document.querySelector("footer");if(footer)footer.innerHTML="<div class='wrap'>© "+new Date().getFullYear()+" "+esc(name)+". Website powered by Frame It.</div>";
