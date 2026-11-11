@@ -10,6 +10,8 @@ create table if not exists public.salons (
   name text not null,
   slug text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
   description text, logo_url text, hero_image_url text,
+  gallery_images jsonb not null default '[]'::jsonb,
+  draft_settings jsonb not null default '{}'::jsonb,
   primary_color text not null default '#315b45',
   accent_color text not null default '#d9b97a',
   phone text, email text, whatsapp text, address text,
@@ -215,3 +217,61 @@ grant select, insert, update, delete on public.salon_members to authenticated;
 grant select, insert, update, delete on public.services, public.staff to authenticated;
 grant insert on public.bookings to anon, authenticated;
 grant select, update on public.bookings to authenticated;
+
+
+-- Public salon media uploads (logos, hero images, and gallery photos).
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('salon-media', 'salon-media', true, 5242880, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do update set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public can view salon media" on storage.objects;
+create policy "Public can view salon media"
+on storage.objects for select to public
+using (bucket_id = 'salon-media');
+
+drop policy if exists "Salon members upload salon media" on storage.objects;
+create policy "Salon members upload salon media"
+on storage.objects for insert to authenticated
+with check (
+  bucket_id = 'salon-media'
+  and exists (
+    select 1 from public.salon_members m
+    where m.salon_id::text = (storage.foldername(name))[1]
+      and m.user_id = (select auth.uid())
+  )
+);
+
+drop policy if exists "Salon members update salon media" on storage.objects;
+create policy "Salon members update salon media"
+on storage.objects for update to authenticated
+using (
+  bucket_id = 'salon-media'
+  and exists (
+    select 1 from public.salon_members m
+    where m.salon_id::text = (storage.foldername(name))[1]
+      and m.user_id = (select auth.uid())
+  )
+)
+with check (
+  bucket_id = 'salon-media'
+  and exists (
+    select 1 from public.salon_members m
+    where m.salon_id::text = (storage.foldername(name))[1]
+      and m.user_id = (select auth.uid())
+  )
+);
+
+drop policy if exists "Salon members delete salon media" on storage.objects;
+create policy "Salon members delete salon media"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'salon-media'
+  and exists (
+    select 1 from public.salon_members m
+    where m.salon_id::text = (storage.foldername(name))[1]
+      and m.user_id = (select auth.uid())
+  )
+);
