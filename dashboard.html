@@ -83,10 +83,9 @@ textarea{min-height:80px;resize:vertical}.grid{display:grid;grid-template-column
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* Add your Supabase project URL and publishable/anon key here.
-   Never use the service_role key in this browser file. */
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+/* Connected to Frame It Salon SaaS. This is a public publishable key; never put a service_role key in browser code. */
+const SUPABASE_URL = "https://liecbgqsvdgyzfiixgji.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_YTd5ayCMY1i7SJyP6QJNqA_J__TIZZx";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
 const $ = id => document.getElementById(id);
 let client = null, user = null, salon = null;
@@ -199,7 +198,7 @@ if(configured && window.supabase) {
   client.auth.onAuthStateChange(()=>{refresh()});
   refresh();
 } else {
-  notice("authmsg","Setup required: create a Supabase project, run supabase/schema.sql, then add your project URL and publishable key in this file.",true);
+  notice("authmsg","Unable to initialise Supabase. Check the project URL, publishable key and network connection.",true);
 }
 </script>
 </body>
