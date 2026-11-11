@@ -30,6 +30,13 @@
 .mobile-menu{display:none}
 @media(max-width:1050px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.columns{grid-template-columns:1fr}.staff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.sidebar{width:0;padding:0;overflow:hidden;transition:.2s}.sidebar.open{width:250px;padding:22px 15px;box-shadow:10px 0 40px #0002}.main{margin-left:0}.topbar{height:64px;padding:0 17px}.mobile-menu{display:inline-flex}.content{padding:25px 16px 45px}.page-head{align-items:flex-start;flex-direction:column}.page-head .btn{width:100%}.stats{gap:9px}.stat{padding:14px}.stat-value{font-size:22px}.card{padding:16px}.field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.service-grid,.staff-grid{grid-template-columns:1fr}.top-actions .desktop-only{display:none}}
+
+/* Booklee-inspired interface refresh */
+:root{font-family:"DM Sans",sans-serif;color:#18232a;background:#f7f9fb;--green:#079bb1;--green2:#07879c;--mint:#e8f6f8;--line:#dfe5e9;--muted:#697780;--white:#fff;--red:#f06445;--amber:#a56a16;--shadow:0 1px 3px rgba(20,40,50,.08)}
+body{background:#fff}.sidebar{width:255px;background:#f3f7fa;color:#18232a;border-right:1px solid #dfe5e9;padding:20px 16px}.brand{border-bottom:0;padding:0 8px 30px}.brand-mark{background:#079bb1;color:#fff;border:0;border-radius:10px}.brand-name{color:#15232a;letter-spacing:0;font-size:18px}.brand-sub{color:#74818a}.nav-label{color:#89969e;padding-top:18px}.nav button{color:#24323a;border-radius:10px;font-weight:500}.nav button:hover,.nav button.active{background:#079bb1;color:#fff}.side-bottom{border-color:#dfe5e9}.avatar{background:#e7eff3;color:#24323a}.account-email{color:#77848c}
+.main{margin-left:255px}.topbar{height:65px;padding:0 26px}.content{max-width:1600px;padding:28px 25px 55px}.crumb strong{color:#18232a}h1{font-size:27px;color:#17232a}.eyebrow{color:#079bb1}.btn{background:#079bb1;border-radius:8px}.btn:hover{background:#07879c}.btn.light{background:#e8f6f8;color:#087f91}.btn.light:hover{background:#d9f0f3}.stat,.card{background:#f5f8fa;border-color:#dfe5e9;border-radius:14px;box-shadow:0 1px 2px rgba(20,40,50,.09)}.stat{padding:20px 22px}.stat-icon{background:transparent;color:#079bb1}.stat-value{font-size:25px}.card{padding:22px}.booking-row{background:#edf2f5;border:0;border-radius:11px;padding:15px;margin:9px 0}.person-avatar{background:#e0edf1;color:#07879c}.pill.confirmed,.pill.active{background:#dff4f6;color:#087f91}.pill.pending{background:#f2f3f4;color:#5d6870}.pill.completed{background:#e7effb;color:#47648f}.pill.declined,.pill.cancelled{background:#fff0ed;color:#bd5238}.quick button{background:#f8fafb}.notice{background:#eaf5f7;border-color:#d8ecef;color:#315b63}.metric-row{display:grid;grid-template-columns:100px 1fr 28px;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #e6ecef;font-size:11px}.metric-track{height:8px;border-radius:99px;background:#e5ecef;overflow:hidden}.metric-track i{display:block;height:100%;background:#079bb1;border-radius:99px}.list-row{border-color:#e6ecef}
+@media(max-width:760px){.sidebar{width:0}.sidebar.open{width:255px}.main{margin-left:0}.content{padding:24px 16px 45px}}
+
 </style>
 </head>
 <body>
@@ -53,9 +60,12 @@
     <div class="nav-label">Workspace</div>
     <nav class="nav">
       <button class="active" data-page="overview"><span class="nav-icon">⌂</span>Overview</button>
-      <button data-page="bookings"><span class="nav-icon">▣</span>Appointments</button>
-      <button data-page="services"><span class="nav-icon">✳</span>Services & pricing</button>
-      <button data-page="team"><span class="nav-icon">♙</span>Team</button>
+      <button data-page="bookings"><span class="nav-icon">▣</span>Bookings</button>
+      <button data-page="calendar"><span class="nav-icon">▦</span>Calendar</button>
+      <button data-page="services"><span class="nav-icon">✳</span>Services</button>
+      <button data-page="team"><span class="nav-icon">♙</span>Employees</button>
+      <button data-page="clients"><span class="nav-icon">♧</span>Clients</button>
+      <button data-page="analytics"><span class="nav-icon">▥</span>Analytics</button>
     </nav>
     <div class="nav-label">Manage</div>
     <nav class="nav">
@@ -157,6 +167,36 @@
           </div>
         </div>
       </section>
+
+      <section id="calendar" class="page">
+        <div class="page-head"><div><div class="eyebrow">DAILY PLANNER</div><h1>Appointment calendar</h1><p class="sub">View your salon appointments by date.</p></div><button class="btn" data-goto="bookings">Manage bookings</button></div>
+        <div class="card">
+          <div class="toolbar"><div class="field"><label for="calendarDate">Choose a date</label><input id="calendarDate" type="date"></div></div>
+          <div id="calendarList"><div class="empty">Select a date to view appointments.</div></div>
+        </div>
+      </section>
+
+      <section id="clients" class="page">
+        <div class="page-head"><div><div class="eyebrow">CUSTOMER RELATIONSHIPS</div><h1>Clients</h1><p class="sub">A directory of customers who have requested appointments.</p></div></div>
+        <div class="card">
+          <div class="toolbar"><input id="clientSearch" placeholder="Search clients by name or phone"></div>
+          <div class="table-wrap"><table class="table"><thead><tr><th>Client</th><th>Phone</th><th>Email</th><th>Appointments</th><th>Last request</th></tr></thead><tbody id="clientRows"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="analytics" class="page">
+        <div class="page-head"><div><div class="eyebrow">BUSINESS INSIGHTS</div><h1>Analytics</h1><p class="sub">A live summary based on appointment requests recorded in your dashboard.</p></div><button id="analyticsRefresh" class="btn light">Refresh data</button></div>
+        <div class="stats">
+          <div class="stat"><div class="stat-top">Total requests <span class="stat-icon">▣</span></div><div class="stat-value" id="analyticsTotal">0</div><div class="stat-foot">All recorded appointments</div></div>
+          <div class="stat"><div class="stat-top">Completed <span class="stat-icon">✓</span></div><div class="stat-value" id="analyticsCompleted">0</div><div class="stat-foot">Marked as completed</div></div>
+          <div class="stat"><div class="stat-top">Pending <span class="stat-icon">◷</span></div><div class="stat-value" id="analyticsPending">0</div><div class="stat-foot">Awaiting your response</div></div>
+          <div class="stat"><div class="stat-top">Conversion <span class="stat-icon">↗</span></div><div class="stat-value" id="analyticsRate">0%</div><div class="stat-foot">Confirmed or completed requests</div></div>
+        </div>
+        <div class="columns">
+          <div class="card"><div class="card-head"><div><h2>Booking activity</h2><p class="sub">Breakdown of your recorded requests.</p></div></div><div id="analyticsBreakdown"></div></div>
+          <div class="card"><h2>Popular services</h2><p class="sub" style="margin-bottom:14px">Most requested services.</p><div id="popularServices"></div></div>
+        </div>
+      </section>
     </div>
   </main>
 </div>
@@ -208,8 +248,14 @@ $("createSalonBtn").onclick=async()=>{const name=$("newName").value.trim(),slug=
 
 async function showAuth(){$("authView").classList.remove("hidden");$("appView").classList.add("hidden")}
 async function refreshApp(){const r=await db.auth.getSession();user=r.data.session?.user||null;if(!user){showAuth();return}$("authView").classList.add("hidden");$("appView").classList.remove("hidden");$("sideEmail").textContent=user.email||"";$("sideAvatar").textContent=(user.email||"S").charAt(0).toUpperCase();const m=await db.from("salon_members").select("salon_id,role,salons(*)").eq("user_id",user.id).order("created_at",{ascending:true}).limit(1);if(m.error){showNotice("globalNotice",m.error.message,true);return}salon=m.data?.[0]?.salons||null;if(!salon){showPage("createSalon");return}await loadAll()}
-async function loadAll(){if(!salon)return;$("sideName").textContent=salon.name;$("welcomeTitle").textContent="Welcome, "+salon.name;$("viewWebsite").href=websiteUrl();$("previewLink").href=websiteUrl();$("websiteAddress").textContent=websiteUrl();$("salonName").value=salon.name||"";$("salonSlug").value=salon.slug||"";$("salonPhone").value=salon.phone||"";$("salonWhatsapp").value=salon.whatsapp||"";$("salonEmail").value=salon.email||"";$("salonAddress").value=salon.address||"";$("salonInstagram").value=salon.instagram_url||"";$("salonFacebook").value=salon.facebook_url||"";$("salonDescription").value=salon.description||"";$("bookingNotice").value=salon.booking_notice||"";$("primaryColor").value=salon.primary_color||"#315b45";$("accentColor").value=salon.accent_color||"#d9b97a";$("siteStatus").textContent=salon.is_active?"Your public website is live and accepting appointment requests.":"Your public website is currently hidden from customers.";$("toggleSite").textContent=salon.is_active?"Pause public website":"Publish public website";const results=await Promise.all([db.from("services").select("*").eq("salon_id",salon.id).order("sort_order").order("created_at"),db.from("staff").select("*").eq("salon_id",salon.id).order("sort_order").order("created_at"),db.from("bookings").select("id,customer_name,customer_phone,customer_email,requested_date,requested_time,status,notes,services(name),staff(name)").eq("salon_id",salon.id).order("created_at",{ascending:false}).limit(200)]);if(results.some(x=>x.error)){showNotice("globalNotice",results.find(x=>x.error).error.message,true);return}services=results[0].data||[];staff=results[1].data||[];bookings=results[2].data||[];renderAll();clearNotice("globalNotice")}
-function renderAll(){const today=dateToday(),pending=bookings.filter(b=>b.status==="pending").length;$("statToday").textContent=bookings.filter(b=>b.requested_date===today&&b.status!=="declined"&&b.status!=="cancelled").length;$("statPending").textContent=pending;$("statServices").textContent=services.filter(s=>s.is_active).length;$("statStaff").textContent=staff.filter(s=>s.is_active).length;renderRecent();renderBookings();renderServices();renderStaff()}
+async function loadAll(){if(!salon)return;$("sideName").textContent=salon.name;$("welcomeTitle").textContent="Welcome, "+salon.name;$("viewWebsite").href=websiteUrl();$("previewLink").href=websiteUrl();$("websiteAddress").textContent=websiteUrl();$("salonName").value=salon.name||"";$("salonSlug").value=salon.slug||"";$("salonPhone").value=salon.phone||"";$("salonWhatsapp").value=salon.whatsapp||"";$("salonEmail").value=salon.email||"";$("salonAddress").value=salon.address||"";$("salonInstagram").value=salon.instagram_url||"";$("salonFacebook").value=salon.facebook_url||"";$("salonDescription").value=salon.description||"";$("bookingNotice").value=salon.booking_notice||"";$("primaryColor").value=salon.primary_color||"#315b45";$("accentColor").value=salon.accent_color||"#d9b97a";$("siteStatus").textContent=salon.is_active?"Your public website is live and accepting appointment requests.":"Your public website is currently hidden from customers.";$("toggleSite").textContent=salon.is_active?"Pause public website":"Publish public website";const results=await Promise.all([db.from("services").select("*").eq("salon_id",salon.id).order("sort_order").order("created_at"),db.from("staff").select("*").eq("salon_id",salon.id).order("sort_order").order("created_at"),db.from("bookings").select("id,customer_name,customer_phone,customer_email,requested_date,requested_time,status,notes,created_at,services(name,price),staff(name)").eq("salon_id",salon.id).order("created_at",{ascending:false}).limit(200)]);if(results.some(x=>x.error)){showNotice("globalNotice",results.find(x=>x.error).error.message,true);return}services=results[0].data||[];staff=results[1].data||[];bookings=results[2].data||[];renderAll();clearNotice("globalNotice")}
+
+function clientRecords(){const map=new Map();bookings.forEach(b=>{const key=(b.customer_phone||b.customer_email||b.customer_name||"").toLowerCase();if(!key)return;const x=map.get(key)||{name:b.customer_name,phone:b.customer_phone,email:b.customer_email,count:0,last:b.requested_date||""};x.count++;if((b.requested_date||"")>x.last)x.last=b.requested_date||"";map.set(key,x)});return [...map.values()].sort((a,b)=>b.count-a.count)}
+function renderClients(){const q=($("clientSearch")?.value||"").toLowerCase();const rows=clientRecords().filter(c=>(c.name+" "+c.phone+" "+(c.email||"")).toLowerCase().includes(q));$("clientRows").innerHTML=rows.length?rows.map(c=>'<tr><td><strong>'+esc(c.name)+'</strong></td><td>'+esc(c.phone||"—")+'</td><td>'+esc(c.email||"—")+'</td><td>'+c.count+'</td><td>'+esc(c.last||"—")+'</td></tr>').join(""):'<tr><td colspan="5"><div class="empty">No clients found yet. Client records appear when customers submit booking requests.</div></td></tr>'}
+function renderCalendar(){const input=$("calendarDate");if(!input)return;if(!input.value)input.value=dateToday();const rows=bookings.filter(b=>b.requested_date===input.value).sort((a,b)=>(a.requested_time||"").localeCompare(b.requested_time||""));$("calendarList").innerHTML=rows.length?rows.map(b=>'<div class="booking-row"><div class="person"><div class="person-avatar">'+esc(initials(b.customer_name))+'</div><div><strong>'+esc(b.customer_name)+'</strong><small>'+esc(b.services?.name||"Service")+' · '+esc(b.staff?.name||"Any available employee")+'</small></div></div><div class="row-meta"><strong>'+esc(b.requested_time||"Time not set")+'</strong>'+statusPill(b.status)+'</div></div>').join(""):'<div class="empty">No appointments recorded for this date.</div>'}
+function renderAnalytics(){const total=bookings.length,done=bookings.filter(b=>b.status==="completed").length,pending=bookings.filter(b=>b.status==="pending").length,converted=bookings.filter(b=>["confirmed","completed"].includes(b.status)).length;$("analyticsTotal").textContent=total;$("analyticsCompleted").textContent=done;$("analyticsPending").textContent=pending;$("analyticsRate").textContent=(total?Math.round(converted/total*100):0)+"%";const statuses=["pending","confirmed","completed","declined","cancelled"];$("analyticsBreakdown").innerHTML=statuses.map(st=>{const n=bookings.filter(b=>b.status===st).length;return '<div class="metric-row"><span>'+st.charAt(0).toUpperCase()+st.slice(1)+'</span><div class="metric-track"><i style="width:'+(total?Math.round(n/total*100):0)+'%"></i></div><strong>'+n+'</strong></div>'}).join("");const counts=new Map();bookings.forEach(b=>{const name=b.services?.name||"Service";counts.set(name,(counts.get(name)||0)+1)});const popular=[...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5);$("popularServices").innerHTML=popular.length?popular.map(([name,n])=>'<div class="list-row"><strong>'+esc(name)+'</strong><span class="pill active">'+n+' requests</span></div>').join(""):'<div class="empty">Service trends will appear as bookings come in.</div>'}
+
+function renderAll(){const today=dateToday(),pending=bookings.filter(b=>b.status==="pending").length;$("statToday").textContent=bookings.filter(b=>b.requested_date===today&&b.status!=="declined"&&b.status!=="cancelled").length;$("statPending").textContent=pending;$("statServices").textContent=services.filter(s=>s.is_active).length;$("statStaff").textContent=staff.filter(s=>s.is_active).length;renderRecent();renderBookings();renderServices();renderStaff();renderClients();renderCalendar();renderAnalytics()}
 function initials(name){return String(name||"?").split(/\s+/).slice(0,2).map(x=>x.charAt(0)).join("").toUpperCase()}
 function statusPill(status){return '<span class="pill '+esc(status)+'">'+esc(status)+'</span>'}
 function renderRecent(){const list=bookings.slice(0,5);$("recentBookings").innerHTML=list.length?list.map(b=>'<div class="booking-row"><div class="person"><div class="person-avatar">'+esc(initials(b.customer_name))+'</div><div><strong>'+esc(b.customer_name)+'</strong><small>'+esc(b.services?.name||"Service")+' · '+esc(b.requested_date||"")+'</small></div></div><div class="row-meta">'+statusPill(b.status)+'<small>'+esc(b.requested_time||"")+'</small></div></div>').join(""):'<div class="empty"><div class="empty-icon">▣</div>No appointment requests yet.</div>'}
@@ -219,7 +265,7 @@ function renderStaff(){$("staffGrid").innerHTML=staff.length?staff.map(s=>'<arti
 function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));const page=$(id);if(page)page.classList.add("active");document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===id));$("crumbName").textContent=({overview:"Overview",bookings:"Appointments",services:"Services & pricing",team:"Team",website:"Website settings",createSalon:"Create salon"}[id]||"Overview");$("sidebar").classList.remove("open");window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll("[data-page],[data-goto]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page||b.dataset.goto)));
 $("menuToggle").onclick=()=>$("sidebar").classList.toggle("open");
-$("refreshBtn").onclick=()=>loadAll();$("bookingRefresh").onclick=()=>loadAll();$("bookingSearch").oninput=renderBookings;$("bookingFilter").onchange=renderBookings;
+$("refreshBtn").onclick=()=>loadAll();$("bookingRefresh").onclick=()=>loadAll();$("bookingSearch").oninput=renderBookings;$("bookingFilter").onchange=renderBookings;$("clientSearch").oninput=renderClients;$("calendarDate").onchange=renderCalendar;$("analyticsRefresh").onclick=()=>loadAll();
 $("copyWebsite").onclick=async()=>{try{await navigator.clipboard.writeText(websiteUrl());showNotice("globalNotice","Website link copied to clipboard.")}catch(e){showNotice("globalNotice","Copy was blocked by your browser. Copy this link: "+websiteUrl(),true)}};
 function openModal(id){$(id).classList.add("open")}function closeModal(id){$(id).classList.remove("open")}
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
