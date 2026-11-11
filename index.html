@@ -44,7 +44,7 @@ nav{display:flex;align-items:center;justify-content:space-between;height:68px}.l
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit;font-size:14px}.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .note{background:var(--blush);border-radius:16px;padding:16px 20px;margin-bottom:20px;font-size:14px}
 .alt-bg{background:color-mix(in srgb,var(--blush) 45%,var(--bg))}.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:28px}.why div{background:var(--card);padding:22px;border-radius:20px;border:1px solid var(--line)}.why h3{font-size:22px;margin-bottom:6px}.why p{margin:0;color:var(--mute);font-size:14px}
-.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:24px}.g button{aspect-ratio:1;border-radius:18px;border:0;cursor:pointer;color:#fff;font:italic 500 20px "Cormorant Garamond",serif;background:linear-gradient(135deg,#f6e0d4,#c9a692);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:flex-end;justify-content:center;padding:16px 12px;text-shadow:0 2px 10px rgba(0,0,0,.45);transition:transform .25s}.g button:nth-child(3n+1){aspect-ratio:3/4}.g button:hover{transform:scale(1.03)}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:24px}.g .salon-gallery-item{aspect-ratio:1;min-width:0;overflow:hidden;border-radius:18px;background:var(--blush)}.g .salon-gallery-item img{display:block;width:100%;height:100%;object-fit:cover}.g button{aspect-ratio:1;border-radius:18px;border:0;cursor:pointer;color:#fff;font:italic 500 20px "Cormorant Garamond",serif;background:linear-gradient(135deg,#f6e0d4,#c9a692);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:flex-end;justify-content:center;padding:16px 12px;text-shadow:0 2px 10px rgba(0,0,0,.45);transition:transform .25s}.g button:nth-child(3n+1){aspect-ratio:3/4}.g button:hover{transform:scale(1.03)}
 .stars{color:var(--gold);letter-spacing:2px}.rv p{margin:8px 0;font-size:15px}.rv small{color:var(--mute)}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:32px}@media(max-width:860px){.contact{grid-template-columns:1fr}}iframe{width:100%;height:100%;min-height:300px;border:0;border-radius:20px}
 .hrs{border-collapse:collapse;margin:12px 0;font-size:14px}.hrs td{padding:3px 24px 3px 0}
@@ -343,7 +343,7 @@ render();
     // Render this salon's own gallery. Never show the template's demo gallery.
     const gallery=document.querySelector("#gallery"),galleryGrid=$("g");
     const galleryItems=Array.isArray(salon.gallery_images)?salon.gallery_images:[];
-    if(gallery&&galleryGrid&&galleryItems.length){gallery.hidden=false;galleryGrid.innerHTML=galleryItems.map((g,n)=>'<div class="salon-gallery-item" role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
+    if(gallery&&galleryGrid&&galleryItems.length){gallery.hidden=false;galleryGrid.innerHTML=galleryItems.filter(g=>safeUrl(g.url)).map((g,n)=>'<div class="salon-gallery-item"><img src="'+esc(safeUrl(g.url))+'" alt="'+esc(g.alt||"Salon photo")+'" loading="lazy" decoding="async"></div>').join("");}
     else if(gallery)gallery.hidden=true;
     document.querySelectorAll('a[href="#gallery"]').forEach(a=>a.hidden=!galleryItems.length);
     ["#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
@@ -443,7 +443,7 @@ render();
       const contact=document.querySelector("#contact");if(contact){const para=contact.querySelector("p");if(para)para.textContent=p.address||salon.address||"Contact the salon for its location.";}
       const footer=document.querySelector("footer");if(footer)footer.innerHTML="<div class='wrap'>© "+new Date().getFullYear()+" "+esc(name)+". Website powered by Frame It.</div>";
       const gallery=document.querySelector("#gallery"),grid=$("g"),items=Array.isArray(p.gallery_images)?p.gallery_images:[];
-      if(gallery&&grid){gallery.hidden=!items.length;grid.innerHTML=items.map(g=>'<div role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
+      if(gallery&&grid){const validItems=items.filter(g=>safeUrl(g.url));gallery.hidden=!validItems.length;grid.innerHTML=validItems.map(g=>'<div class="salon-gallery-item"><img src="'+esc(safeUrl(g.url))+'" alt="'+esc(g.alt||"Salon photo")+'" loading="lazy" decoding="async"></div>').join("");}
       document.querySelectorAll('a[href="#gallery"]').forEach(a=>a.hidden=!items.length);
     });
     if(window.parent!==window)window.parent.postMessage({type:"frameit-preview-ready"},"*");
