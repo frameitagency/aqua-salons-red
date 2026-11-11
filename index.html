@@ -271,6 +271,13 @@ render();
   #tenant-status{max-width:760px;margin:12vh auto;padding:28px 22px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
   #tenant-status h1{font-size:clamp(30px,5vw,44px);margin-bottom:12px}
   #tenant-status p{color:var(--mute)}
+
+/* Tenant brand colours: keep accent colour visible across every salon theme. */
+:root{--accent:var(--gold)}
+.eyebrow,.logo i,.hero h1 em,.price,.stars{color:var(--accent)!important}
+.btn.gold,.hero .btn:not(.alt),.g button{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+.card.v{border-color:var(--accent)!important}
+.tile{border-bottom:3px solid var(--accent)!important}
 </style>
 <script>
 (async function(){
