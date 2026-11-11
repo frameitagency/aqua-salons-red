@@ -264,5 +264,159 @@ $("bw").onclick=function(){var f=$("bf");if(f.requestSubmit)f.requestSubmit();el
 document.addEventListener("click",function(e){var b=e.target.closest("[data-b],[data-book]");if(!b)return;e.preventDefault();openForm(b.dataset.b!==undefined?b.dataset.b:null);if(!dlg.open)dlg.showModal()});
 render();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  body{visibility:hidden}
+  #tenant-status{max-width:760px;margin:12vh auto;padding:28px 22px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
+  #tenant-status h1{font-size:clamp(30px,5vw,44px);margin-bottom:12px}
+  #tenant-status p{color:var(--mute)}
+</style>
+<script>
+(async function(){
+  const SUPABASE_URL="https://liecbgqsvdgyzfiixgji.supabase.co";
+  const SUPABASE_KEY="sb_publishable_YTd5ayCMY1i7SJyP6QJNqA_J__TIZZx";
+  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  const $=id=>document.getElementById(id);
+  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const safeUrl=v=>{try{const u=new URL(v,location.href);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}};
+  const showStatus=(title,message)=>{
+    document.body.innerHTML='<main id="tenant-status"><h1>'+esc(title)+'</h1><p>'+esc(message)+'</p><p>Frame It Salon Platform</p></main>';
+    document.body.style.visibility="visible";
+  };
+  const slug=new URLSearchParams(location.search).get("salon");
+  if(!slug){showStatus("Salon website","This website needs a salon slug. Open it with ?salon=your-salon-slug, using the slug created in the salon dashboard.");return;}
+  try{
+    const {data:salon,error:salonError}=await client.from("salons").select("*").eq("slug",slug).eq("is_active",true).maybeSingle();
+    if(salonError) throw salonError;
+    if(!salon){showStatus("Salon not found","This salon website is unavailable or has not been activated yet. Check the website address with the salon.");return;}
+    const [{data:services,error:serviceError},{data:staff,error:staffError}]=await Promise.all([
+      client.from("services").select("id,name,description,category,price,duration_minutes,image_url,sort_order").eq("salon_id",salon.id).eq("is_active",true).order("sort_order").order("created_at"),
+      client.from("staff").select("id,name,role_title,bio,photo_url").eq("salon_id",salon.id).eq("is_active",true).order("sort_order").order("created_at")
+    ]);
+    if(serviceError) throw serviceError;
+    if(staffError) throw staffError;
+    if(!services.length){showStatus(salon.name,"This salon has not added its services yet. Please contact the salon directly.");return;}
+
+    document.title=salon.name+" | Book an Appointment";
+    const desc=salon.description||("View services and request an appointment with "+salon.name+".");
+    document.querySelector('meta[name="description"]')?.setAttribute("content",desc);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content",salon.name);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content",desc);
+    const root=document.documentElement;
+    root.style.setProperty("--gold",salon.accent_color||"#a9806a");
+    root.style.setProperty("--dk",salon.primary_color||"#2b2220");
+    root.style.setProperty("--ink",salon.primary_color||"#2b2220");
+    root.style.setProperty("--accent",salon.accent_color||"#a9806a");
+
+    const logo=$("brand-logo");
+    const navLogo=document.querySelector(".logo");
+    if(navLogo){navLogo.textContent=salon.name;navLogo.href="#home";}
+    const eyebrow=document.querySelector(".hero .eyebrow");
+    if(eyebrow) eyebrow.textContent=salon.address||"Welcome to our salon";
+    const heroTitle=document.querySelector(".hero h1");
+    if(heroTitle) heroTitle.innerHTML="Your style. <em>Your moment.</em>";
+    const heroSub=document.querySelector(".hero .sub");
+    if(heroSub) heroSub.textContent=desc;
+    const art=$(".hero .art");
+    if(art){const img=safeUrl(salon.hero_image_url);if(img)art.style.backgroundImage="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(img)+")";art.innerHTML="<div style='background:rgba(24,18,16,.45);padding:18px 20px;border-radius:20px'><b>"+esc(salon.name)+"</b><small>"+esc(salon.address||"Beauty and self-care")+"</small></div>";}
+    const about=document.querySelector("#about");
+    if(about){
+      const p=about.querySelector("p");if(p)p.textContent=desc;
+      const h=about.querySelector("h2");if(h)h.textContent="Welcome to "+salon.name;
+      const link=about.querySelector("a");if(link){if(salon.instagram_url){link.href=safeUrl(salon.instagram_url);link.textContent="Instagram";}else if(salon.facebook_url){link.href=safeUrl(salon.facebook_url);link.textContent="Facebook";}else link.parentElement.remove();}
+      const aboutArt=about.querySelector(".art");if(aboutArt){const img=safeUrl(salon.hero_image_url);if(img)aboutArt.style.backgroundImage="url("+JSON.stringify(img)+")";else aboutArt.remove();}
+    }
+    const whyLabel=[...document.querySelectorAll(".eyebrow")].find(e=>e.textContent.includes("Why Adora"));
+    if(whyLabel)whyLabel.textContent="Why "+salon.name;
+    const whyHeading=whyLabel?.parentElement?.querySelector("h2");if(whyHeading)whyHeading.textContent="Services tailored to you";
+    const whySection=whyLabel?.closest("section");
+    if(whySection){const paragraphs=whySection.querySelectorAll(".why p");if(paragraphs[0])paragraphs[0].textContent="Browse services and prices before requesting an appointment.";if(paragraphs[1])paragraphs[1].textContent="Choose the treatments that suit your visit.";if(paragraphs[2])paragraphs[2].textContent=salon.address||"Contact the salon for location details.";}
+
+    // Hide demo-only content until the platform has proper gallery, reviews and package management.
+    ["#gallery","#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
+    const team=document.querySelector("#team");
+    if(team){
+      const grid=team.querySelector(".grid");
+      if(grid)grid.innerHTML=staff.length?staff.map(p=>'<article class="card"><div class="cb tm"><div class="mono">'+esc((p.name||"S").slice(0,1).toUpperCase())+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.role_title||"Salon professional")+'</p></div></article>').join(""):'<p class="sub">Staff profiles will be added soon.</p>';
+    }
+    const contact=document.querySelector("#contact");
+    if(contact){
+      const p=contact.querySelector("p");if(p)p.textContent=salon.address||"Contact the salon for its location.";
+      const buttons=contact.querySelector(".cta");
+      if(buttons){
+        buttons.innerHTML="";
+        if(salon.phone){const a=document.createElement("a");a.className="btn";a.href="tel:"+salon.phone.replace(/[^\d+]/g,"");a.textContent="Call "+salon.phone;buttons.appendChild(a);}
+        if(salon.email){const a=document.createElement("a");a.className="btn alt";a.href="mailto:"+salon.email;a.textContent="Email us";buttons.appendChild(a);}
+        if(salon.whatsapp){const n=salon.whatsapp.replace(/\D/g,"");const a=document.createElement("a");a.className="btn gold";a.href="https://wa.me/"+n;a.target="_blank";a.rel="noopener";a.textContent="WhatsApp";buttons.appendChild(a);}
+      }
+      const map=contact.querySelector("iframe");if(map){if(salon.address)map.src="https://www.google.com/maps?q="+encodeURIComponent(salon.address)+"&output=embed";else map.remove();}
+    }
+    const footer=document.querySelector("footer");if(footer)footer.innerHTML="<div class='wrap'>© "+new Date().getFullYear()+" "+esc(salon.name)+". Website powered by Frame It.</div>";
+    const stats=document.querySelector(".hero .stats");
+    if(stats)stats.innerHTML="<div><b>"+services.length+"</b>services</div><div><b>"+staff.length+"</b>team members</div><div><b>Online</b>booking requests</div>";
+
+    // Replace the demo service catalogue with this salon's own Supabase records.
+    const categoryNames=[...new Set(services.map(s=>(s.category||"General").trim()).filter(Boolean))];
+    const categoryMap={};const cats={};
+    categoryNames.forEach((name,i)=>{const key="c"+i;categoryMap[name]=key;cats[key]=name;});
+    window.CATS=cats;
+    window.S=services.map(s=>[s.name,categoryMap[(s.category||"General").trim()]||"c0",Number(s.price),Number(s.duration_minutes),s.description||"",s.id,safeUrl(s.image_url)]);
+    window.cat="all";
+    const chips=$("chips");
+    if(chips){
+      chips.innerHTML='<button class="chip" data-c="all" aria-pressed="true">All services</button>'+Object.entries(cats).map(([k,v])=>'<button class="chip" data-c="'+k+'" aria-pressed="false">'+esc(v)+'</button>').join("");
+      chips.onclick=e=>{const b=e.target.closest("[data-c]");if(!b)return;window.cat=b.dataset.c;chips.querySelectorAll("[data-c]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.c===window.cat)));window.render();};
+    }
+    window.card=function(s,i){
+      const img=s[6],bg=img?"linear-gradient(rgba(26,20,17,.12),rgba(26,20,17,.62)),url("+JSON.stringify(img)+")":"linear-gradient(135deg,#f6e0d4,#c9a692)";
+      return '<article class="card"><div class="tile" style="background-image:'+bg+'"><span>'+esc(window.CATS[s[1]]||"Service")+'</span></div><div class="cb"><h3>'+esc(s[0])+'</h3><p>'+esc(s[4])+'</p><div class="meta"><span>'+esc(window.fm(s[3]))+'</span><span class="price">'+new Intl.NumberFormat("en-ZA",{style:"currency",currency:"ZAR"}).format(s[2])+'</span></div><div class="row"><button class="btn alt sm" data-d="'+i+'">Details</button><button class="btn sm" data-b="'+i+'">Book Now</button></div></div></article>';
+    };
+    window.render=function(){
+      const q=$("q")?.value.toLowerCase()||"",order=$("sort")?.value||"";
+      let rows=window.S.map((s,i)=>[s,i]).filter(([s])=>(window.cat==="all"||s[1]===window.cat)&&(s[0]+" "+s[4]).toLowerCase().includes(q));
+      if(order)rows.sort((a,b)=>order==="pa"?a[0][2]-b[0][2]:order==="pd"?b[0][2]-a[0][2]:a[0][3]-b[0][3]);
+      $("list").innerHTML=rows.length?rows.map(([s,i])=>window.card(s,i)).join(""):"<p>No services match your search.</p>";
+      const note=$("vnote");if(note)note.hidden=true;
+    };
+    $("q").oninput=window.render;$("sort").onchange=window.render;
+    const pk=$("pk");if(pk)pk.innerHTML="";
+    window.render();
+
+    const dlg=$("dlg"),dc=$("dc");
+    window.openForm=function(index){
+      const chosen=index===null||index===undefined?null:window.S[Number(index)];
+      const options=window.S.map((s,i)=>'<option value="'+i+'" '+(chosen&&s===chosen?"selected":"")+'>'+esc(s[0])+' · '+new Intl.NumberFormat("en-ZA",{style:"currency",currency:"ZAR"}).format(s[2])+'</option>').join("");
+      const staffOptions=staff.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+(p.role_title?" · "+esc(p.role_title):"")+'</option>').join("");
+      const minDate=new Date();minDate.setMinutes(minDate.getMinutes()-minDate.getTimezoneOffset());
+      dc.innerHTML='<h3 style="font-size:28px">Request an appointment</h3><p style="color:var(--mute);font-size:14px">Your request is sent to the salon for confirmation. It is not confirmed until the salon responds.</p><form id="public-booking" novalidate><label>Service</label><select id="pb-service">'+options+'</select><label>Preferred staff member</label><select id="pb-staff"><option value="">No preference</option>'+staffOptions+'</select><label>Preferred date</label><input id="pb-date" type="date" min="'+minDate.toISOString().slice(0,10)+'" required><label>Preferred time</label><input id="pb-time" type="time" required><label>Your name</label><input id="pb-name" autocomplete="name" required><label>Phone number</label><input id="pb-phone" type="tel" autocomplete="tel" required><label>Email (optional)</label><input id="pb-email" type="email" autocomplete="email"><label>Notes (optional)</label><textarea id="pb-notes" rows="3"></textarea><p class="err" id="pb-error" role="alert"></p><button class="btn" type="submit" style="width:100%">Send booking request</button></form>';
+      if(!dlg.open)dlg.showModal();
+      $("public-booking").onsubmit=async e=>{
+        e.preventDefault();
+        const service=window.S[Number($("pb-service").value)];
+        const name=$("pb-name").value.trim(),phone=$("pb-phone").value.trim(),date=$("pb-date").value,time=$("pb-time").value,email=$("pb-email").value.trim();
+        const error=$("pb-error");
+        if(!service||!name||!phone||!date||!time){error.textContent="Please complete the service, name, phone, date and time.";return;}
+        if(date<minDate.toISOString().slice(0,10)){error.textContent="Choose a date from today onwards.";return;}
+        if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){error.textContent="Enter a valid email address or leave it blank.";return;}
+        const submit=e.submitter;submit.disabled=true;submit.textContent="Sending…";
+        const payload={salon_id:salon.id,service_id:service[5],staff_id:$("pb-staff").value||null,customer_name:name,customer_phone:phone,customer_email:email||null,requested_date:date,requested_time:time,notes:$("pb-notes").value.trim()||null,status:"pending"};
+        const {error:insertError}=await client.from("bookings").insert(payload);
+        if(insertError){error.textContent="We couldn't send the request. Please contact the salon directly. "+insertError.message;submit.disabled=false;submit.textContent="Send booking request";return;}
+        dc.innerHTML='<h3 style="font-size:28px">Request received</h3><p>Your appointment request has been sent to '+esc(salon.name)+'. The salon will contact you to confirm the date and time.</p><p class="note">Your appointment is not confirmed until the salon replies.</p><button class="btn" id="close-booking">Close</button>';
+        $("close-booking").onclick=()=>dlg.close();
+      };
+    };
+    document.addEventListener("click",e=>{
+      const detail=e.target.closest("[data-d]");
+      if(detail){const s=window.S[Number(detail.dataset.d)];if(!s)return;dc.innerHTML='<h3 style="font-size:28px">'+esc(s[0])+'</h3><p class="price">'+new Intl.NumberFormat("en-ZA",{style:"currency",currency:"ZAR"}).format(s[2])+' · <span style="font-size:16px;font-family:Inter">'+esc(window.fm(s[3]))+'</span></p><p>'+esc(s[4])+'</p><button class="btn" id="detail-book">Request this service</button>';dlg.showModal();$("detail-book").onclick=()=>window.openForm(Number(detail.dataset.d));}
+    });
+    document.body.style.visibility="visible";
+  }catch(err){
+    console.error("Salon website loading failed:",err);
+    showStatus("We couldn't load this salon website","Please refresh the page. If the problem continues, contact Frame It Agency.");
+  }
+})();
+</script>
 </body>
 </html>
