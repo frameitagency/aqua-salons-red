@@ -144,12 +144,12 @@ h1,h2,h3{font-weight:500}h2{letter-spacing:.01em}
 <section class="alt-bg" id="contact"><div class="wrap contact"><div><span class="eyebrow">Contact</span><h2>Visit us</h2>
 <p>Starwood Mall Spar, 6 Rydevale Road, Phoenix, KwaZulu-Natal 4319</p>
 <table class="hrs"><tr><td>Monday – Sunday</td><td>09:00 – 18:00</td></tr></table>
-<div class="cta"><a class="btn" href="tel:+27762550602">Call +27 76 255 0602</a><a class="btn alt" href="mailto:starwoodwellnessb@outlook.com">Email us</a><a class="btn gold" href="https://wa.me/27762550602?text=Hi%20AQUA%20SALONS%20RED%2C%20I%27d%20like%20to%20make%20an%20enquiry" target="_blank" rel="noopener">WhatsApp</a></div></div>
+<div class="cta"><a class="btn" href="tel:+27817216672">Call 0817216672</a><a class="btn alt" href="mailto:frameitagancy@gmail.com">Email us</a><a class="btn gold" href="https://wa.me/27817216672?text=Hi%20AQUA%20SALONS%20RED%2C%20I%27d%20like%20to%20make%20an%20enquiry" target="_blank" rel="noopener">WhatsApp</a></div></div>
 <div><iframe loading="lazy" title="Map" src="https://www.google.com/maps?q=Starwood+Mall+Spar+Phoenix+KZN+4319&output=embed"></iframe></div></div></section>
 
 <section class="dark" style="text-align:center"><div class="wrap"><h2>Ready for your moment?</h2><p class="sub" style="margin:0 auto 24px">Choose your treatment and send us your preferred date and time.</p><a class="btn" href="#" data-book>Book Now</a></div></section>
 </main>
-<footer><div class="wrap">© AQUA SALONS RED, Phoenix, KZN · <a href="tel:+27762550602">+27 76 255 0602</a> · <a href="mailto:starwoodwellnessb@outlook.com">starwoodwellnessb@outlook.com</a></div></footer>
+<footer><div class="wrap">© AQUA SALONS RED, Phoenix, KZN · <a href="tel:+27817216672">0817216672</a> · <a href="mailto:frameitagancy@gmail.com">frameitagancy@gmail.com</a></div></footer>
 <a class="btn gold fab" href="#" data-book>Book Now</a>
 <div class="tab"><a class="on" href="#home">Home</a><a href="#services">Services</a><a href="#" data-book>Book</a><a href="#contact">Contact</a></div>
 
@@ -244,7 +244,7 @@ $("g").onclick=function(e){var t=e.target.dataset.g;if(t){var selected=null;GALL
 $("rv").innerHTML=RV.map(function(r){return'<article class="card"><div class="cb"><span class="stars">★★★★★</span><p>“'+r[1]+'”</p><small>'+r[0]+'</small></div></article>'}).join("");
 $("burger").onclick=function(){var o=$("links").classList.toggle("open");this.setAttribute("aria-expanded",o)};
 $("links").onclick=function(){this.classList.remove("open")};
-var MAIL="starwoodwellnessb@outlook.com";
+var MAIL="frameitagancy@gmail.com";
 function newRef(){var u=[];try{u=JSON.parse(localStorage.getItem("hbRefs")||"[]")}catch(e){}var r,n=0;do{r="C"+(1000+crypto.getRandomValues(new Uint32Array(1))[0]%9000);n++}while(u.indexOf(r)>-1&&n<200);return r}
 function useRef(r){try{var u=JSON.parse(localStorage.getItem("hbRefs")||"[]");u.push(r);localStorage.setItem("hbRefs",JSON.stringify(u))}catch(e){}}
 function openForm(i){var REF=newRef(),s=(i===null||i==="")?null:S[i];
@@ -259,7 +259,7 @@ e.textContent=m||"";if(m)return null;
 return{s:s2[0],t:"Booking reference: "+REF+"\nService: "+s2[0]+"\nListed price: "+(s2[2]?"R"+s2[2]:"Free (voucher)")+"\nDuration: "+fm(s2[3])+"\nTechnician: "+$("bu").value+"\nPreferred date: "+v("bd")+"\nPreferred time: "+$("bt").value+"\nName: "+v("bn")+"\nPhone: "+v("bp")+"\nEmail: "+v("be")+(v("bm")?"\nNotes: "+v("bm"):"")}}
 $("bf").onsubmit=function(ev){ev.preventDefault();var r=build();if(!r)return;
 $("dc").innerHTML='<h3 style="font-size:28px">Almost done</h3><div class="note" style="text-align:center"><div style="font-size:13px">Your booking reference</div><div style="font:500 52px/1.1 Cormorant Garamond,serif;letter-spacing:.08em;margin:6px 0">'+REF+'</div><b>Please screenshot this reference</b> and keep it for your appointment.</div><p>Your request is <b>not sent yet</b>. Tap Open email app below and press send there, or send it on WhatsApp. We will confirm your time by phone or email.</p><p style="font-size:14px;color:var(--mute)">As a backup, also send your reference to the salon on WhatsApp. Nothing opened? Copy the request and email it to '+MAIL+'.</p><textarea id="cp" rows="8" readonly></textarea><div class="row" style="margin-top:12px"><a class="btn" target="_blank" rel="noopener" id="ml">Open email app</a></div><div class="row" style="margin-top:12px"><button class="btn alt" id="cpb">Copy request</button><a class="btn" target="_blank" rel="noopener" id="wa">Send backup on WhatsApp</a></div>';
-$("cp").value=r.t;$("ml").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Booking "+REF+": "+r.s)+"&body="+encodeURIComponent(r.t);$("wa").href="https://wa.me/27762550602?text="+encodeURIComponent(r.t);$("cpb").onclick=function(){$("cp").select();try{document.execCommand("copy");this.textContent="Copied"}catch(x){}};
+$("cp").value=r.t;$("ml").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Booking "+REF+": "+r.s)+"&body="+encodeURIComponent(r.t);$("wa").href="https://wa.me/27817216672?text="+encodeURIComponent(r.t);$("cpb").onclick=function(){$("cp").select();try{document.execCommand("copy");this.textContent="Copied"}catch(x){}};
 useRef(REF)};
 $("bw").onclick=function(){var f=$("bf");if(f.requestSubmit)f.requestSubmit();else f.dispatchEvent(new Event("submit",{cancelable:true}))}}
 document.addEventListener("click",function(e){var b=e.target.closest("[data-b],[data-book]");if(!b)return;e.preventDefault();openForm(b.dataset.b!==undefined?b.dataset.b:null);if(!dlg.open)dlg.showModal()});
