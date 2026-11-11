@@ -309,7 +309,6 @@ render();
     root.style.setProperty("--ink",salon.primary_color||"#2b2220");
     root.style.setProperty("--accent",salon.accent_color||"#a9806a");
 
-    const logo=$("brand-logo");
     const navLogo=document.querySelector(".logo");
     if(navLogo){navLogo.textContent=salon.name;navLogo.href="#home";}
     const eyebrow=document.querySelector(".hero .eyebrow");
@@ -318,7 +317,7 @@ render();
     if(heroTitle) heroTitle.innerHTML="Your style. <em>Your moment.</em>";
     const heroSub=document.querySelector(".hero .sub");
     if(heroSub) heroSub.textContent=desc;
-    const art=$(".hero .art");
+    const art=document.querySelector(".hero .art");
     if(art){const img=safeUrl(salon.hero_image_url);if(img)art.style.backgroundImage="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(img)+")";art.innerHTML="<div style='background:rgba(24,18,16,.45);padding:18px 20px;border-radius:20px'><b>"+esc(salon.name)+"</b><small>"+esc(salon.address||"Beauty and self-care")+"</small></div>";}
     const about=document.querySelector("#about");
     if(about){
