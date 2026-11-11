@@ -338,6 +338,7 @@ render();
     const galleryItems=Array.isArray(salon.gallery_images)?salon.gallery_images:[];
     if(gallery&&galleryGrid&&galleryItems.length){gallery.hidden=false;galleryGrid.innerHTML=galleryItems.map((g,n)=>'<div class="salon-gallery-item" role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
     else if(gallery)gallery.hidden=true;
+    document.querySelectorAll('a[href="#gallery"]').forEach(a=>a.hidden=!galleryItems.length);
     ["#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
     document.querySelectorAll('a[href="#reviews"],a[href="#packages"]').forEach(a=>a.hidden=true);
     const team=document.querySelector("#team");
@@ -436,6 +437,7 @@ render();
       const footer=document.querySelector("footer");if(footer)footer.innerHTML="<div class='wrap'>© "+new Date().getFullYear()+" "+esc(name)+". Website powered by Frame It.</div>";
       const gallery=document.querySelector("#gallery"),grid=$("g"),items=Array.isArray(p.gallery_images)?p.gallery_images:[];
       if(gallery&&grid){gallery.hidden=!items.length;grid.innerHTML=items.map(g=>'<div role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
+      document.querySelectorAll('a[href="#gallery"]').forEach(a=>a.hidden=!items.length);
     });
     if(window.parent!==window)window.parent.postMessage({type:"frameit-preview-ready"},"*");
   }catch(err){
