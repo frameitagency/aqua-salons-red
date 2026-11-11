@@ -287,7 +287,7 @@ render();
   const slug=new URLSearchParams(location.search).get("salon");
   if(!slug){showStatus("Salon website","This website needs a salon slug. Open it with ?salon=your-salon-slug, using the slug created in the salon dashboard.");return;}
   try{
-    const {data:salon,error:salonError}=await client.from("salons").select("*").eq("slug",slug).eq("is_active",true).maybeSingle();
+    const {data:salon,error:salonError}=await client.from("salons").select("id,name,slug,description,logo_url,hero_image_url,primary_color,accent_color,phone,email,whatsapp,address,instagram_url,facebook_url,booking_notice,is_active,gallery_images").eq("slug",slug).eq("is_active",true).maybeSingle();
     if(salonError) throw salonError;
     if(!salon){showStatus("Salon not found","This salon website is unavailable or has not been activated yet. Check the website address with the salon.");return;}
     const [{data:services,error:serviceError},{data:staff,error:staffError}]=await Promise.all([
@@ -310,7 +310,8 @@ render();
     root.style.setProperty("--accent",salon.accent_color||"#a9806a");
 
     const navLogo=document.querySelector(".logo");
-    if(navLogo){navLogo.textContent=salon.name;navLogo.href="#home";}
+    if(navLogo){navLogo.href="#home";navLogo.innerHTML=salon.logo_url?'<img src="'+esc(safeUrl(salon.logo_url))+'" alt="'+esc(salon.name)+' logo" style="max-height:48px;max-width:170px;object-fit:contain">':esc(salon.name);}
+    const logoStyle=document.createElement("style");logoStyle.textContent=".logo img{display:block;max-width:170px;max-height:48px;object-fit:contain}";document.head.appendChild(logoStyle);
     const eyebrow=document.querySelector(".hero .eyebrow");
     if(eyebrow) eyebrow.textContent=salon.address||"Welcome to our salon";
     const heroTitle=document.querySelector(".hero h1");
@@ -332,9 +333,13 @@ render();
     const whySection=whyLabel?.closest("section");
     if(whySection){const paragraphs=whySection.querySelectorAll(".why p");if(paragraphs[0])paragraphs[0].textContent="Browse services and prices before requesting an appointment.";if(paragraphs[1])paragraphs[1].textContent="Choose the treatments that suit your visit.";if(paragraphs[2])paragraphs[2].textContent=salon.address||"Contact the salon for location details.";}
 
-    // Hide demo-only content and links until these features are managed per salon.
-    ["#gallery","#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
-    document.querySelectorAll('a[href="#gallery"],a[href="#reviews"],a[href="#packages"]').forEach(a=>a.hidden=true);
+    // Render this salon's own gallery. Never show the template's demo gallery.
+    const gallery=document.querySelector("#gallery"),galleryGrid=$("g");
+    const galleryItems=Array.isArray(salon.gallery_images)?salon.gallery_images:[];
+    if(gallery&&galleryGrid&&galleryItems.length){gallery.hidden=false;galleryGrid.innerHTML=galleryItems.map((g,n)=>'<div class="salon-gallery-item" role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
+    else if(gallery)gallery.hidden=true;
+    ["#reviews","#packages"].forEach(sel=>{const el=document.querySelector(sel);if(el)el.hidden=true;});
+    document.querySelectorAll('a[href="#reviews"],a[href="#packages"]').forEach(a=>a.hidden=true);
     const team=document.querySelector("#team");
     if(team){
       const grid=team.querySelector(".grid");
@@ -412,6 +417,27 @@ render();
       if(detail){e.stopImmediatePropagation();const s=window.S[Number(detail.dataset.d)];if(!s)return;dc.innerHTML='<h3 style="font-size:28px">'+esc(s[0])+'</h3><p class="price">'+new Intl.NumberFormat("en-ZA",{style:"currency",currency:"ZAR"}).format(s[2])+' · <span style="font-size:16px;font-family:Inter">'+esc(window.fm(s[3]))+'</span></p><p>'+esc(s[4])+'</p><button class="btn" id="detail-book">Request this service</button>';dlg.showModal();$("detail-book").onclick=()=>window.openForm(Number(detail.dataset.d));}
     },true);
     document.body.style.visibility="visible";
+    window.addEventListener("message",event=>{
+      if(event.origin!==location.origin||event.source!==window.parent||event.data?.type!=="frameit-apply-preview")return;
+      const p=event.data.draft||{};
+      document.documentElement.style.setProperty("--gold",p.accent_color||salon.accent_color||"#a9806a");
+      document.documentElement.style.setProperty("--dk",p.primary_color||salon.primary_color||"#2b2220");
+      document.documentElement.style.setProperty("--ink",p.primary_color||salon.primary_color||"#2b2220");
+      document.documentElement.style.setProperty("--accent",p.accent_color||salon.accent_color||"#a9806a");
+      const name=p.name||salon.name,description=p.description||("View services and request an appointment with "+name+".");
+      document.title=name+" | Preview";
+      const logo=document.querySelector(".logo");if(logo)logo.innerHTML=p.logo_url?'<img src="'+esc(safeUrl(p.logo_url))+'" alt="'+esc(name)+' logo" style="max-height:48px;max-width:170px;object-fit:contain">':esc(name);
+      const heroTitle=document.querySelector(".hero h1");if(heroTitle)heroTitle.innerHTML=esc(name);
+      const heroSub=document.querySelector(".hero .sub");if(heroSub)heroSub.textContent=description;
+      const eyebrow=document.querySelector(".hero .eyebrow");if(eyebrow)eyebrow.textContent=p.address||salon.address||"Welcome to our salon";
+      const heroArt=document.querySelector(".hero .art");if(heroArt){const u=safeUrl(p.hero_image_url||salon.hero_image_url);if(u)heroArt.style.backgroundImage="linear-gradient(rgba(36,25,21,.18),rgba(36,25,21,.18)),url("+JSON.stringify(u)+")";heroArt.querySelector("b")?.replaceChildren(document.createTextNode(name));}
+      const about=document.querySelector("#about");if(about){const h=about.querySelector("h2");if(h)h.textContent="Welcome to "+name;const para=about.querySelector("p");if(para)para.textContent=description;const art=about.querySelector(".art");const u=safeUrl(p.hero_image_url||salon.hero_image_url);if(art&&u)art.style.backgroundImage="url("+JSON.stringify(u)+")";}
+      const contact=document.querySelector("#contact");if(contact){const para=contact.querySelector("p");if(para)para.textContent=p.address||salon.address||"Contact the salon for its location.";}
+      const footer=document.querySelector("footer");if(footer)footer.innerHTML="<div class='wrap'>© "+new Date().getFullYear()+" "+esc(name)+". Website powered by Frame It.</div>";
+      const gallery=document.querySelector("#gallery"),grid=$("g"),items=Array.isArray(p.gallery_images)?p.gallery_images:[];
+      if(gallery&&grid){gallery.hidden=!items.length;grid.innerHTML=items.map(g=>'<div role="img" aria-label="'+esc(g.alt||"Salon photo")+'" style="aspect-ratio:1;border-radius:18px;background:url('+JSON.stringify(safeUrl(g.url))+') center/cover no-repeat"></div>').join("");}
+    });
+    if(window.parent!==window)window.parent.postMessage({type:"frameit-preview-ready"},"*");
   }catch(err){
     console.error("Salon website loading failed:",err);
     showStatus("We couldn't load this salon website","Please refresh the page. If the problem continues, contact Frame It Agency.");
