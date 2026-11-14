@@ -319,7 +319,10 @@ render();
   try{
     const {data:salon,error:salonError}=await client.from("salons").select("id,name,slug,description,logo_url,hero_image_url,primary_color,accent_color,phone,email,whatsapp,address,instagram_url,facebook_url,booking_notice,is_active,gallery_images").eq("slug",slug).eq("is_active",true).maybeSingle();
     if(salonError) throw salonError;
-    if(!salon){showStatus("Salon not found","This salon website is unavailable or has not been activated yet. Check the website address with the salon.");return;}
+    if(!salon){showStatus("Salon not found","This salon website is unavailable or its free trial or subscription has ended. Contact the salon for assistance.");return;}
+    const {data:websiteAvailable,error:accessError}=await client.rpc("salon_website_is_available",{target_salon:salon.id});
+    if(accessError) throw accessError;
+    if(!websiteAvailable){showStatus("Website temporarily unavailable","This salon's seven-day trial has ended. The website will be available again when the salon subscription is active.");return;}
     const [{data:services,error:serviceError},{data:staff,error:staffError}]=await Promise.all([
       client.from("services").select("id,name,description,category,price,duration_minutes,image_url,sort_order").eq("salon_id",salon.id).eq("is_active",true).order("sort_order").order("created_at"),
       client.from("staff").select("id,name,role_title,bio,photo_url").eq("salon_id",salon.id).eq("is_active",true).order("sort_order").order("created_at")
