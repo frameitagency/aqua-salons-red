@@ -190,7 +190,7 @@ body{background:#fff}.sidebar{width:255px;background:#f3f7fa;color:#18232a;borde
             <h2>Start or resume test subscription</h2>
             <p class="sub" style="margin:8px 0 16px">Checkout is currently restricted to Paystack test mode. The monthly amount is R199. No live payment can be started from this screen.</p>
             <label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;margin:16px 0">
-              <input id="billingConsent" type="checkbox" style="margin-top:4px">
+              <input id="billingConsent" type="checkbox" style="width:auto;flex:0 0 auto;margin-top:4px">
               <span>I am the salon owner or an authorised adult representative. I have reviewed and agree to the R199 monthly recurring subscription terms.</span>
             </label>
             <button id="startBilling" class="btn full" disabled>Continue to Paystack test checkout</button>
@@ -296,6 +296,7 @@ async function loadAll(){if(!salon)return;const draft=salonDraft();$("sideName")
 
 async function loadBilling(){
   if(!salon||salonRole!=="owner")return;
+  $("billingConsent").checked=false;$("startBilling").disabled=true;
   $("billingStatus").textContent="Loading";
   $("billingMessage").textContent="Checking subscription status…";
   const {data,error}=await db.functions.invoke("get-salon-billing",{body:{salon_id:salon.id}});
