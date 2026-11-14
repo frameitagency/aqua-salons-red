@@ -303,7 +303,7 @@ async function loadAll(){if(!salon)return;const draft=salonDraft();$("sideName")
 
 async function loadBilling(){
   if(!salon||!(salonRole==="owner"||salonRole==="admin"))return;
-  $("billingConsent").checked=false;$("startBilling").disabled=true;$("billingConsent").closest("label").classList.add("hidden");$("startBilling").classList.add("hidden");$("billingMessage").textContent="Billing is visible here, but payment and subscription changes must be handled by the authorised adult account holder."
+  $("billingConsent").checked=false;$("startBilling").disabled=true;$("billingConsent").closest("label").classList.remove("hidden");$("startBilling").classList.remove("hidden");$("billingMessage").textContent="Payment and subscription changes must be handled by the authorised adult account holder."
   $("billingStatus").textContent="Loading";
   $("billingMessage").textContent="Checking subscription status…";
   const {data,error}=await db.functions.invoke("get-salon-billing",{body:{salon_id:salon.id}});
@@ -313,8 +313,11 @@ async function loadBilling(){
   const fmt=value=>value?new Date(value).toLocaleDateString("en-ZA",{day:"numeric",month:"short",year:"numeric"}):"—";
   $("billingPeriodEnd").textContent=fmt(sub.current_period_end);
   $("billingNextPayment").textContent=fmt(sub.next_payment_at||sub.current_period_end);
-  $("billingMessage").textContent=status==="active"?"Your subscription is active. Your salon workspace is marked as paid.":status==="past_due"?"A payment needs attention. Please contact Frame It to arrange the next step.":status==="pending"?"Checkout was started. Waiting for verified payment confirmation.":status==="canceled"?"This subscription has been canceled. Contact Frame It if you need to restart it.":"No active subscription is recorded for this salon yet.";
-  $("startBilling").disabled=!$("billingConsent").checked||status==="active"||status==="trialing";
+  $("billingMessage").textContent=status==="active"?"Your subscription is active. Your salon workspace is marked as paid.":status==="trialing"?"Your free trial is active. An authorised adult account holder can start the R199 monthly subscription at any time.":status==="past_due"?"A payment needs attention. An authorised adult account holder can retry checkout.":status==="pending"?"Checkout was started. Waiting for verified payment confirmation.":status==="canceled"?"This subscription has been canceled. An authorised adult account holder can restart it.":"No active subscription is recorded for this salon yet.";
+  const canStartSubscription=status!=="active";
+  $("billingConsent").closest("label").classList.toggle("hidden",!canStartSubscription);
+  $("startBilling").classList.toggle("hidden",!canStartSubscription);
+  $("startBilling").disabled=!$("billingConsent").checked||!canStartSubscription;
   if(new URLSearchParams(location.search).get("billing")==="return"){
     showNotice("globalNotice","You have returned from checkout. Payment is not considered complete until Paystack sends a verified confirmation.");
     const url=new URL(location.href);url.searchParams.delete("billing");history.replaceState({}, "", url);
